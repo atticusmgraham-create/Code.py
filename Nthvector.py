@@ -1,4 +1,3 @@
-
 import math
 import numpy as np
 from numpy.linalg import matrix_rank
@@ -14,8 +13,8 @@ def vect(o,p,i,a,x):
     ans[i]=ans[i]*o
  print("measurements",ans)
  return ans
-c=vect(2,5,3,8,6)
-g=vect(5,3,7,4,1)
+c=vect(2,2,2,2,6)
+g=vect(2,2,2,2,6)
 
 norma = math.sqrt(sum(x*x for x in c))
 psi_n= [x / norma for x in c]
@@ -101,5 +100,8 @@ puritya = np.trace(rho_B @ rho_B)
 
 print("purity B:", puritya)
 purityofAB=np.trace(rho_A @ rho_B)
-print("purity of A and B:")
-print(purityofAB
+print("purity of AB:")
+print(purityofAB)
+purityofBA=np.trace(rho_B @ rho_A)
+print("purity of BA:")
+print(purityofBA
