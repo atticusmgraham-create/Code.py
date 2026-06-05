@@ -14,13 +14,13 @@ def vect(o,p,i,a,x):
  print("measurements",ans)
  return ans
 c=vect(2,5,3,8,6)
-g=vect(2,3,7,9,1)
+g=vect(5,3,7,4,1)
 
 norma = math.sqrt(sum(x*x for x in c))
 psi_n= [x / norma for x in c]
 #print(psi_n)
-normb = math.sqrt(sum(x*x for x in g))
-psi_nd= [x / normb for x in g]
+normb = math.sqrt(sum(xa*xa for xa in g))
+psi_nd= [xa / normb for xa in g]
 #print(psi_nd)
 psid = np.array(psi_n, dtype=float)
 psia= np.array(psi_nd, dtype=float)
@@ -39,6 +39,8 @@ basisb=np.eye(len(psid))
 rank = matrix_rank(basisa)
 
 #print("Dimension of basis:", rank)
+
+
 Q, R = np.linalg.qr(basisa.T)  # QR decomposition
 
 basis = Q[:, :np.linalg.matrix_rank(basisa)]
@@ -47,16 +49,27 @@ print(basis)
 rankd = matrix_rank(basisb)
 
 #print("Dimension of basis:", rank)
-Q, R = np.linalg.qr(basisb.T)  # QR decomposition
 
-basisu = Q[:, :np.linalg.matrix_rank(basisb)]
+P, K = np.linalg.qr(basisb.T)  # QR decomposition
+
+basisu = P[:, :np.linalg.matrix_rank(basisb)]
 print("m2:")
 print(basisu)
-
+c = np.linalg.inv(basis) @ psia
+cd = np.linalg.inv(basisu) @ psid
+print("coordinates for A:")
+print(c)
+print("coordinates for B:")
+print(cd)
+psic=c/np.linalg.norm(c)
+rhop=np.outer(psic,psic)
+print("density matrix a:")
+print(rhop)
+psiec=cd/np.linalg.norm(cd)
+rhodp=np.outer(psiec,psiec)
+print("density matrix b:")
+print(rhodp)
 #gs=projection(psia, 2) # amplitude of |2>
 #tb=(projection(psid, 2))  
 #a = np.array([1, 2, 3])   # system A (n=3)
-#b = np.array([4, 5, 6])   # system B (n=3)
-#psi = np.kron(a, b)  # n^2-dimensional state
-#n = 3
-#psi_matrix = psi.reshape
+#b = np.array([4, 5, 6])
