@@ -21,7 +21,7 @@ psi_n= [x / norma for x in c]
 #print(psi_n)
 normb = math.sqrt(sum(xa*xa for xa in g))
 psi_nd= [xa / normb for xa in g]
-#print(psi_nd)
+#print(psi_nd) he
 psid = np.array(psi_n, dtype=float)
 psia= np.array(psi_nd, dtype=float)
 psia = psia / np.linalg.norm(psia)
@@ -104,4 +104,8 @@ print("purity of AB:")
 print(purityofAB)
 purityofBA=np.trace(rho_B @ rho_A)
 print("purity of BA:")
-print(purityofBA
+print(purityofBA)
+eA=von_neumann_entropy(rho_A)
+print("entropy A: ",eA)
+eB=von_neumann_entropy(rho_B)
+print("entropy B: ",eB
