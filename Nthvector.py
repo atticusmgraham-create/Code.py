@@ -1,3 +1,4 @@
+
 import math
 import numpy as np
 from numpy.linalg import matrix_rank
@@ -75,3 +76,30 @@ print(rhordp)
 #tb=(projection(psid, 2))  
 #a = np.array([1, 2, 3])   # system A (n=3)
 #b = np.array([4, 5, 6])
+rho_A = np.zeros((2, 2))
+
+for i in range(2):
+
+    for j in range(2):
+
+        rho_A[i, j] = sum(rhorp[i, k, j, k] for k in range(2))
+print("subsystem A: ")
+print(rho_A)
+rho_B = np.zeros((2, 2))
+
+for i in range(2):
+
+    for j in range(2):
+
+        rho_B[i, j] = sum(rhordp[i, k, j, k] for k in range(2))
+print("subsystem B: ")
+print(rho_B)
+purity = np.trace(rho_A @ rho_A)
+
+print("purity A:", purity)
+puritya = np.trace(rho_B @ rho_B)
+
+print("purity B:", puritya)
+purityofAB=np.trace(rho_A @ rho_B)
+print("purity of A and B:")
+print(purityofAB
