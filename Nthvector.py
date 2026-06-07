@@ -1,29 +1,7 @@
 import math
 import numpy as np
 from numpy.linalg import matrix_rank
-def conditions(x,y,z,w):
- if(x==y==z==w):
-  return "all entangled"
- if(x==y==w):
-  return "a and b and ba are entangled"
- if(x==y==z):
-  return "a and b and ab are entangled"
- if(z==w==x):
-  return "a and ab and ba are entangled"
- if(z==w==y):
-  return "b and ab and ba are entangled"
- if(z==w and x==y):
-  return "ab and ba are entangled a and b are entangled"
- if(z==y and x==w):
-  return "ab and b are entangled a and ba are entangled"
- if(z==x and y==w):
-  return "ab and a are entangled b and ba are entangled"
- if(y==x and z==w):
-  return "a and b are entangled ab and ba are entangled"
- if(y==x and z!=w):
-  return "a and b are entangled"
- if(y!=x and z==w):
-  return "ab and ba are entangled"
+
 def vect(o,p,i,a,x):
  import math
  angle=[p,i,x,a]
@@ -117,19 +95,18 @@ for i in range(2):
 print("subsystem B: ")
 print(rho_B)
 purity = np.trace(rho_A @ rho_A)
-
+probA=rho_A@rho_A
 print("purity A:", purity)
 puritya = np.trace(rho_B @ rho_B)
-
+probB=rho_B@rho_B
 print("purity B:", puritya)
 purityofAB=np.trace(rho_A @ rho_B)
 print("purity of AB:")
 print(purityofAB)
+probAB=rho_A@rho_B
 purityofBA=np.trace(rho_B @ rho_A)
 print("purity of BA:")
 print(purityofBA)
-print(conditions(purity,puritya,purityofAB,purityofBA))
-
-
+probBA=rho_B@rho_A
 
 
