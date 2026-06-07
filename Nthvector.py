@@ -12,6 +12,15 @@ def conditions(x,y,z,w):
   return "a and ab and ba are entangled"
  if(z==w==y):
   return "b and ab and ba are entangled"
+ if(z==w and x==y):
+  return "ab and ba are entangled a and b are entangled"
+ if(z==y and x==w):
+  return "ab and b are entangled a and ba are entangled"
+ if(z==x and y==w):
+  return "ab and a are entangled b and ba are entangled"
+ if(y==x and z==w):
+  return "a and b are entangled ab and ba are entangled"
+
 def vect(o,p,i,a,x):
  import math
  angle=[p,i,x,a]
