@@ -105,7 +105,4 @@ print(purityofAB)
 purityofBA=np.trace(rho_B @ rho_A)
 print("purity of BA:")
 print(purityofBA)
-eA=von_neumann_entropy(rho_A)
-print("entropy A: ",eA)
-eB=von_neumann_entropy(rho_B)
-print("entropy B: ",eB)
+
