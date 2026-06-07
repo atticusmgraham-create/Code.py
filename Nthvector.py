@@ -4,9 +4,10 @@ from numpy.linalg import matrix_rank
 def conditions(x,y,z,w):
  if(x==y==z==w):
   return "all entangled"
-def con(x,y,z,w):
- if(x==y and z==w):
-  return "a and b are entangled ba and ab are entangled"
+ if(x==y==w):
+  return "a and b and ba are entangled"
+ if(x==y==z):
+  return "a and b and ab are entangled"
 def vect(o,p,i,a,x):
  import math
  angle=[p,i,x,a]
