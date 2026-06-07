@@ -116,4 +116,8 @@ print(purityofAB)
 purityofBA=np.trace(rho_B @ rho_A)
 print("purity of BA:")
 print(purityofBA)
+print(conditions(purity,puritya,purityofAB,purityofBA))
+
+
+
 
