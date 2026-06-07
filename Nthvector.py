@@ -2,6 +2,21 @@ import math
 import numpy as np
 from numpy.linalg import matrix_rank
 
+
+def entanglement_entropy(eigenvalues):
+
+    return -sum(
+
+        lam * math.log2(lam)
+
+        for lam in eigenvalues
+
+        if lam > 0
+
+    )
+def ev(x):
+ import numpy as np
+ return np.linalg.eigvals(x)
 def vect(o,p,i,a,x):
  import math
  angle=[p,i,x,a]
@@ -95,18 +110,20 @@ for i in range(2):
 print("subsystem B: ")
 print(rho_B)
 purity = np.trace(rho_A @ rho_A)
-probA=rho_A@rho_A
-print("purity A:", purity)
+probA=ev(rho_A@rho_A)
+#print("purity A:", purity)
 puritya = np.trace(rho_B @ rho_B)
-probB=rho_B@rho_B
-print("purity B:", puritya)
+probB=ev(rho_B@rho_B)
+#print("purity B:", puritya)
 purityofAB=np.trace(rho_A @ rho_B)
-print("purity of AB:")
-print(purityofAB)
-probAB=rho_A@rho_B
+#print("purity of AB:")
+#print(purityofAB)
+probAB=ev(rho_A@rho_B)
 purityofBA=np.trace(rho_B @ rho_A)
-print("purity of BA:")
-print(purityofBA)
-probBA=rho_B@rho_A
-
-
+#print("purity of BA:")
+#print(purityofBA)
+probBA=ev(rho_B@rho_A)
+print("entanglement B: ",entanglement_entropy(probB))
+print("entanglement A: ",entanglement_entropy(probA))
+print("entanglement BA: ",entanglement_entropy(probBA))
+print("entanglement AB: ",entanglement_entropy(probAB))
