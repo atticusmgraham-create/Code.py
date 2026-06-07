@@ -1,6 +1,9 @@
 import math
 import numpy as np
 from numpy.linalg import matrix_rank
+def conditions(x,y,z,w):
+ if(x==y==z==w):
+  return "all entangled"
 def vect(o,p,i,a,x):
  import math
  angle=[p,i,x,a]
