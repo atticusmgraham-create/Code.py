@@ -1,4 +1,4 @@
-def x(h,k,l,od,p,i,e,r,pl,ui,kol):   
+def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):   
     def Qs(h,k,l,od,p,i,e,r,pl,ui):  
         import math
         import numpy as np
@@ -343,5 +343,7 @@ def x(h,k,l,od,p,i,e,r,pl,ui,kol):
         elif(state[i]=='OO'):
             state[i]='<>'
     print(state)
-    return state
-x(2,3,5,6,7,8,9,2,6,7,90)
+    return state,val
+Xm=x("P",2,3,5,6,7,8,9,2,6,7,90)
+print(Xm[0])
+print(Xm[1])
