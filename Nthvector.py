@@ -286,10 +286,10 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
 import numpy as np
 Xlist=[]
 Ylist=[]
-k=4
+k=40
 for i in range(0,k):
     import math
-    LO=Qs(4,5,6,7,8,9,3,4,5,8)
+    LO=Qs(1,1,1,1,(i+5)**3,1,1,1,1,1)
     print("The system is: ",sum(LO),"qubits")
     print(LO)
     Xlist.append(LO[0])
@@ -298,7 +298,10 @@ for i in range(0,k):
     Ylist.append(LO[3])
 M1=np.array([Xlist])
 M2=np.array([Ylist]).reshape(len(M1[0]),1)
-Matrixofstates=M2@M1
+Matrixofstates=(M2@M1)*(M1@M2)
 
 print("states:")
-print(Matrixofstates*(M1@M2))
+print(Matrixofstates)
+
+
+
