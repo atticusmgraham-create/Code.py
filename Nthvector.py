@@ -299,6 +299,7 @@ for i in range(0,k):
 M1=np.array([Xlist])
 M2=np.array([Ylist]).reshape(len(M1[0]),1)
 Matrixofstates=(M2@M1)*(M1@M2)
-
-print("states:")
-print(Matrixofstates)
+for hk in range(0,k):
+ for fg in range(0,k):  
+  print("x: ",hk,"y: ",fg," state:")
+  print(Matrixofstates[hk][fg])
