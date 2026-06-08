@@ -304,8 +304,8 @@ eigenvalues, eigenvectors = np.linalg.eig(Matrixofstates)
 descending_indices = np.argsort(np.abs(eigenvalues))[::-1]
 sorted_values = eigenvalues[descending_indices]
 sorted_vectors = eigenvectors[:, descending_indices]
-k = 2
+k = 90
 best_eigenvalues = sorted_values[:k]
 best_eigenvectors = sorted_vectors[:, :k]
 matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
-print("matrix shrinked:", matr)
+print("new matrix:", matr)
