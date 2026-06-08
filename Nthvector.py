@@ -304,8 +304,18 @@ eigenvalues, eigenvectors = np.linalg.eig(Matrixofstates)
 descending_indices = np.argsort(np.abs(eigenvalues))[::-1]
 sorted_values = eigenvalues[descending_indices]
 sorted_vectors = eigenvectors[:, descending_indices]
-k = 90
+k = 6
 best_eigenvalues = sorted_values[:k]
 best_eigenvectors = sorted_vectors[:, :k]
 matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
-print("new matrix:", matr)
+#print("new matrix:", matr)
+for i in range(0,len(matr)):
+    for io in range(0,len(matr)):
+        
+        if(matr[i][io].real>0):
+            print("^",end=" ")
+        elif(matr[i][io].real<0):
+            print("v",end=" ")
+        else:
+            print("O",end=" ")
+    print()
