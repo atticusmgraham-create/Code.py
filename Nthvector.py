@@ -289,7 +289,7 @@ Ylist=[]
 k=40
 for i in range(0,k):
     import math
-    LO=Qs(i,i+5,(i**2),(i**3)+1,(i**2)+1,i+1,(i**4),i-2,1,1)
+    LO=Qs(i,i+5,(i**2),(i**3)+1,(i**2)+1,0,(i**4),i-2,1,1)
     print("The system is: ",sum(LO),"qubits")
     print(LO)
     Xlist.append(LO[0])
@@ -304,7 +304,7 @@ eigenvalues, eigenvectors = np.linalg.eig(Matrixofstates)
 descending_indices = np.argsort(np.abs(eigenvalues))[::-1]
 sorted_values = eigenvalues[descending_indices]
 sorted_vectors = eigenvectors[:, descending_indices]
-k = 6
+k = 68
 best_eigenvalues = sorted_values[:k]
 best_eigenvectors = sorted_vectors[:, :k]
 matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
@@ -315,29 +315,31 @@ for i in range(0,len(matr)):
     for io in range(0,len(matr)):
         state.append("")
         if(matr[i][io].real>0):
-            print("^",end=" ")
+            #print("^",end=" ")
             state[idl]="^"+state[idl]
         elif(matr[i][io].real<0):
-            print("v",end=" ")
+            #print("v",end=" ")
             state[idl]="v"+state[idl]
         else:
-            print("O",end=" ")
+            #print("O",end=" ")
             state[idl]="O"+state[idl]
         if(matr[i][io].imag>0):
-            print("^",end=" ")
+            #print("^",end=" ")
             state[idl]="^"+state[idl]
         elif(matr[i][io].imag<0):
-            print("v",end=" ")
+            #print("v",end=" ")
             state[idl]="v"+state[idl]
         else:
-            print("O",end=" ")
+            #print("O",end=" ")
             state[idl]="O"+state[idl]
         idl+=1
     
-    print()
+    #print()
 for i in range(0,len(state)):
     if(state[i]=='O^'):
         state[i]='<<'
     elif(state[i]=='Ov'):
         state[i]='>>'
+    elif(state[i]=='OO'):
+        state[i]='<>'
 print(state)
