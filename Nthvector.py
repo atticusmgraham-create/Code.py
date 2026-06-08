@@ -123,7 +123,7 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     purity = np.trace(rho_A @ rho_A)
     probA=entanglement_entropy(ev(rho_A))
     #print("purity A:", purity)
-    puritya = np.trace(rho_B @ rho_B)
+    puritya = np.trace(rho_B)
     probB=entanglement_entropy(ev(rho_B))
     #print("purity B:", puritya)
     purityofAB=np.trace(rho_A @ rho_B)
@@ -173,13 +173,9 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     print("entangled Bits for AB and BA: ",entangledBitsab)
     
     C_system_B = math.sqrt(max(0.0, entangledBitsB))
-    print(findState(C_system_B),"and",findStates(C_system_B))
+   
     C_system_A = math.sqrt(max(0.0, entangledBitsA))
-    print(findState(C_system_A),"and",findStates(C_system_A))
-    C_system_AB = math.sqrt(max(0.0, entangledBitsab))
-    #print(findState(C_system_AB),"and",findStates(C_system_AB))
-    C_system_BA = math.sqrt(max(0.0, entangledBitsba))
-    #print(findState(C_system_BA),"and",findStates(C_system_BA))
+    AllQbits=[findState(C_system_A),findStates(C_system_A),findState(C_system_B),findStates(C_system_B)]
     entangledBits=np.array([entangledBitsA,entangledBitsB,entangledBitsab,entangledBitsba])
     entangledBitsAandB=np.array([entangledBitsA,entangledBitsB])
     entangledBitsABandBA=np.array([entangledBitsab,entangledBitsba])
@@ -285,6 +281,8 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
         return ranked_systems
     
     results = compare_system_entanglement_pure_numpy(my_experiments)
-    
-LO=Qs(4,5,6,7,80,90,10,11,12,13)
+    return AllQbits
+LO=Qs(4,5,6,7,8,9,1,1,1,3)
+print("The system is: ",sum(LO),"qubits")
+print(LO)
 
