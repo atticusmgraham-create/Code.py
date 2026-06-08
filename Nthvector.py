@@ -29,8 +29,8 @@ def vect(o,p,i,a,x):
     ans[i]=ans[i]*o
  print("measurements",ans)
  return ans
-c=vect(2,2,2,2,6)
-g=vect(2,2,2,2,6)
+c=vect(2,2,2,2,2)
+g=vect(2,2,2,2,2)
 
 norma = math.sqrt(sum(x*x for x in c))
 psi_n= [x / norma for x in c]
@@ -63,7 +63,7 @@ basis = Q[:, :np.linalg.matrix_rank(basisa)]
 print("m1:")
 print(basis)
 rankd = matrix_rank(basisb)
-
+D=2
 #print("Dimension of basis:", rank)
 
 P, K = np.linalg.qr(basisb.T)  # QR decomposition
@@ -71,6 +71,8 @@ P, K = np.linalg.qr(basisb.T)  # QR decomposition
 basisu = P[:, :np.linalg.matrix_rank(basisb)]
 print("m2:")
 print(basisu)
+print("m3:")
+print(basisu@basis)
 c = np.linalg.inv(basis) @ psia
 cd = np.linalg.inv(basisu) @ psid
 print("coordinates for A:")
@@ -122,8 +124,48 @@ probAB=entanglement_entropy(ev(rho_A@rho_B))
 purityofBA=np.trace(rho_B @ rho_A)
 #print("purity of BA:")
 #print(purityofBA)
+Sla=0
+Slb=0
 probBA=entanglement_entropy(ev(rho_B@rho_A))
 print("entanglement B: ",probB)
 print("entanglement BA: ",probBA)
+entangledB=-(probB*math.log(probB,2)+probBA*math.log(probBA,2))
+print("entangelement BA and B equals:", entangledB)
+if(entangledB<1):
+    SLb=1-(math.pow(probB,2)+math.pow(probBA,2))
+    print("Sl in system B: ",SLb)
+print("dimensions for system B:",D)
+entangledBitsB=(D/(D-1))*SLb
+
+print("entangled Bits for B and BA: ",entangledBitsB)
 print("entanglement A: ",probA)
 print("entanglement AB: ",probAB)
+
+entangledA=-(probA*math.log(probA,2)+probAB*math.log(probAB,2))
+print("entangelement BA and B equals:", entangledA)
+if(entangledA<1):
+    SLa=1-(math.pow(probA,2)+math.pow(probAB,2))
+    print("Sl in system A: ",SLa)
+print("dimensions for system A:",D)
+entangledBitsA=(D/(D-1))*SLa
+print("entangled Bits for A and AB: ",entangledBitsA)
+print("entanglement A: ",probA)
+print("entanglement B: ",probB)
+entangledBA=-(probA*math.log(probA,2)+probB*math.log(probB,2))
+print("entangelement A and B equals:", entangledBA)
+if(entangledBA<1):
+    SLba=1-(math.pow(probB,2)+math.pow(probA,2))
+    print("Sl in system B and system A: ",SLba)
+print("dimensions for system A and system B:",D)
+entangledBitsba=(D/(D-1))*SLba
+print("entangled Bits for A and B: ",entangledBitsba)
+print("entanglement AB: ",probAB)
+print("entanglement BA: ",probBA)
+entangledAB=-(probAB*math.log(probAB,2)+probBA*math.log(probBA,2))
+print("entangelement AB and BA equals:", entangledAB)
+if(entangledAB<1):
+    SLab=1-(math.pow(probAB,2)+math.pow(probBA,2))
+    print("Sl in system BA and system AB: ",SLab)
+print("dimensions for system AB and system BA:",D)
+entangledBitsab=(D/(D-1))*SLab
+print("entangled Bits for AB and BA: ",entangledBitsab)
