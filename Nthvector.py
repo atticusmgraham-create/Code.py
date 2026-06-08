@@ -289,7 +289,7 @@ Ylist=[]
 k=40
 for i in range(0,k):
     import math
-    LO=Qs(abs(math.cos(i**4))+1,abs(math.sin(i**3))+1,abs(math.cos(i**2))+1,abs(math.cos(i**3))+1,abs(math.sin(i**2))+1,abs(math.cos(i))+1,abs(math.sin(i**4))+1,abs(math.sin(i))+1,1,1)
+    LO=Qs(i+1,i+5,(i**2)+1,(i**3)+1,(i**2)+1,i+1,(i**4)+1,i+1,1,1)
     print("The system is: ",sum(LO),"qubits")
     print(LO)
     Xlist.append(LO[0])
