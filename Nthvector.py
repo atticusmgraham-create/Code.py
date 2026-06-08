@@ -289,7 +289,7 @@ Ylist=[]
 k=40
 for i in range(0,k):
     import math
-    LO=Qs(abs(math.cos(i**4))+1,abs(math.sin(i**4))+1,abs(math.cos(i**3))+1,abs(math.cos(i**2))+1,abs(math.sin(i**2))+1,abs(math.cos(i))+1,abs(math.sin(i**3))+1,abs(math.sin(i))+1,1,1)
+    LO=Qs(abs(math.cos(i**4))+1,abs(math.sin(i**3))+1,abs(math.cos(i**2))+1,abs(math.cos(i**3))+1,abs(math.sin(i**2))+1,abs(math.cos(i))+1,abs(math.sin(i**4))+1,abs(math.sin(i))+1,1,1)
     print("The system is: ",sum(LO),"qubits")
     print(LO)
     Xlist.append(LO[0])
@@ -309,13 +309,35 @@ best_eigenvalues = sorted_values[:k]
 best_eigenvectors = sorted_vectors[:, :k]
 matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
 #print("new matrix:", matr)
+state=[]
+idl=0
 for i in range(0,len(matr)):
     for io in range(0,len(matr)):
-        
+        state.append("")
         if(matr[i][io].real>0):
             print("^",end=" ")
+            state[idl]="^"+state[idl]
         elif(matr[i][io].real<0):
             print("v",end=" ")
+            state[idl]="v"+state[idl]
         else:
             print("O",end=" ")
+            state[idl]="O"+state[idl]
+        if(matr[i][io].imag>0):
+            print("^",end=" ")
+            state[idl]="^"+state[idl]
+        elif(matr[i][io].imag<0):
+            print("v",end=" ")
+            state[idl]="v"+state[idl]
+        else:
+            print("O",end=" ")
+            state[idl]="O"+state[idl]
+        idl+=1
+    
     print()
+for i in range(0,len(state)):
+    if(state[i]=='O^'):
+        state[i]='<<'
+    elif(state[i]=='Ov'):
+        state[i]='>>'
+print(state)
