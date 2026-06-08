@@ -1,3 +1,4 @@
+
 def Qs(h,k,l,od,p,i,e,r,pl,ui):  
     import math
     import numpy as np
@@ -282,8 +283,22 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
 
     results = compare_system_entanglement_pure_numpy(my_experiments)
     return AllQbits
-for i in range(0,10):
-    LO=Qs(400+i,500+i,600+i,700+i,800+i,500+i,100+i,300+i,100,100)
+import numpy as np
+Xlist=[]
+Ylist=[]
+k=4
+for i in range(0,k):
+    import math
+    LO=Qs(4,5,6,7,8,9,3,4,5,8)
     print("The system is: ",sum(LO),"qubits")
     print(LO)
+    Xlist.append(LO[0])
+    Xlist.append(LO[1])
+    Ylist.append(LO[2])
+    Ylist.append(LO[3])
+M1=np.array([Xlist])
+M2=np.array([Ylist]).reshape(len(M1[0]),1)
+Matrixofstates=M2@M1
 
+print("states:")
+print(Matrixofstates*(M1@M2))
