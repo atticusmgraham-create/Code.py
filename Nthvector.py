@@ -1,3 +1,4 @@
+import string
 def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):   
     def Qs(h,k,l,od,p,i,e,r,pl,ui):  
         import math
@@ -259,9 +260,9 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
             ranked_systems = sorted(results.items(), key=lambda x: x[1]["score"], reverse=True)
             
             # Print formatted results
-            print("=" * 46)
-            print(f"{'RANK':<5} | {'SYSTEM NAME':<15} | {'QUBITS':<6} | {'SCORE':<7} | {'STATUS'}")
-            print("=" * 46)
+            #print("=" * 46)
+            #print(f"{'RANK':<5} | {'SYSTEM NAME':<15} | {'QUBITS':<6} | {'SCORE':<7} | {'STATUS'}")
+            #print("=" * 46)
             
             for rank, (name, data) in enumerate(ranked_systems, 1):
                 score = data["score"]
@@ -276,8 +277,8 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
                 else:
                     status = "Separable (None)"
                     
-                print(f"{rank:<5} | {name:<15} | {qubits:<6} | {score:.4f} | {status}")
-            print("=" * 46)
+                #print(f"{rank:<5} | {name:<15} | {qubits:<6} | {score:.4f} | {status}")
+            #print("=" * 46)
             
             return ranked_systems
     
@@ -290,8 +291,8 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
     for i in range(0,kk):
         import math
         LO=Qs(i,i+5,(i**2),(i**3)+1,(i**2)+1,0,(i**4),i-2,1,1)
-        print("The system is: ",sum(LO),"qubits")
-        print(LO)
+        #print("The system is: ",sum(LO),"qubits")
+        #print(LO)
         Xlist.append(LO[0])
         Xlist.append(LO[1])
         Ylist.append(LO[2])
@@ -342,8 +343,95 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
             state[i]='>>'
         elif(state[i]=='OO'):
             state[i]='<>'
-    print(state)
+    for i in range(0,len(state)):
+        if(state[i]=='<>' or state[i]=='^v' or state[i]=='v^'):
+            state[i]=0
+        else:
+            state[i]=1*(10**(len(state)-i-1))
+    
+    state=str(sum(state))
+    state=int(state,2)
     return state,val
-Xm=x("P",2,3,5,6,7,8,9,2,6,7,90)
-print(Xm[0])
-print(Xm[1])
+a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','']
+ab=[]
+for i in range(0,27):    
+    e=x(a[i],6,6,6,6,6,6,6,0,6,0,i)
+    #print(e[0])
+    ab.append(e[0])
+def human(x,y,l,o,p):
+    return y[l]-y[o]-y[p],x[l]+x[o]+x[p]
+
+
+dictionary_array = [
+    "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
+  "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
+  "ahs", "aid", "ail", "aim", "ain", "air", "ais", "ait", "aji", "aka", 
+  "ala", "alb", "ale", "all", "alp", "alt", "alu", "ama", "ami", "amp", 
+  "amu", "ana", "and", "ane", "ani", "ant", "any", "ape", "apo", "app", 
+  "apt", "arb", "arc", "ard", "are", "arf", "ark", "arm", "ars", "art", 
+  "ary", "ash", "ask", "asp", "ass", "ate", "auk", "ava", "ave", "avo", 
+  "awa", "awe", "awl", "awn", "axe", "aye",
+   "baa", "bac", "bad", "bae", "bag", "bah", "bal", "bam", "ban", "bao", 
+  "bap", "bar", "bas", "bat", "baw", "bay", "bed", "bee", "beg", "bel", 
+  "ben", "bes", "bet", "bey", "bez", "bib", "bid", "big", "bin", "bio", 
+  "bis", "bit", "biz", "boa", "bob", "bod", "bog", "boh", "boi", "bok", 
+  "bon", "boo", "bop", "bor", "bos", "bot", "bow", "box", "boy", "bra", 
+  "bro", "brr", "bru", "bub", "bud", "bug", "bum", "bun", "bur", "bus", 
+  "but", "buy", "bye", "bys",
+   "caa", "cab", "cad", "caf", "cag", "cal", "cam", "can", "cap", "car", 
+  "cat", "caw", "cay", "caz", "cee", "cel", "cep", "cha", "che", "chi", 
+  "cid", "cig", "cis", "cit", "cly", "cob", "cod", "cog", "col", "con", 
+  "coo", "cop", "coq", "cor", "cos", "cot", "cow", "cox", "coy", "coz", 
+  "cru", "cry", "cub", "cud", "cue", "cum", "cup", "cur", "cut", "cuz", 
+  "cwm","dab", "dad", "dae", "dag", "dah", "dak", "dal", "dam", "dan", "dap", 
+  "dar", "das", "daw", "day", "dbx", "deb", "dee", "def", "deg", "dei", 
+  "del", "den", "dep", "des", "dev", "dew", "dex", "dey", "dib", "did", 
+  "die", "dif", "dig", "dil", "dim", "din", "dip", "dis", "dit", "div", 
+  "dkg", "dkl", "dkm", "dlr", "dms", "dob", "doc", "dod", "doe", "dof", 
+  "dog", "doh", "dol", "dom", "don", "doo", "dop", "dor", "dos", "dot", 
+  "dow", "dox", "doy", "dpi", "dpt", "dry", "dso", "dsp", "dub", "duc", 
+  "dud", "due", "dug", "duh", "dui", "dum", "dun", "duo", "dup", "dur", 
+  "dux", "dwt", "dwy", "dye", "dyn", "dzo",  "ean", "ear", "eas", "eat", "eau", "ebb", "ech", "eco", "ecu", "edh", 
+  "eds", "eek", "eel", "een", "eew", "eff", "efs", "eft", "egg", "ego", 
+  "ehs", "eik", "eke", "eld", "elf", "elk", "ell", "elm", "els", "elt", 
+  "eme", "emo", "ems", "emu", "end", "ene", "eng", "ens", "eon", "era", 
+  "ere", "erf", "erg", "erk", "erm", "ern", "err", "ers", "ess", "est", 
+  "eta", "eth", "euk", "eve", "evo", "ewe", "ewk", "ewt", "exo", "exp", 
+  "ext", "eye",  "faa", "fab", "fad", "fae", "fag", "fah", "fam", "fan", "fap", "far", 
+  "fas", "fat", "fav", "faw", "fax", "fay", "fed", "fee", "feg", "feh", 
+  "fem", "fen", "fer", "fes", "fet", "feu", "few", "fey", "fez", "fib", 
+  "fid", "fie", "fig", "fil", "fin", "fir", "fit", "fix", "fiz", "flo", 
+  "flu", "fly", "fob", "foe", "fog", "foh", "fon", "foo", "fop", "for", 
+  "fou", "fox", "foy", "fra", "fro", "fry", "fub", "fud", "fug", "fum", 
+  "fun", "fur","gab", "gad", "gae", "gag", "gah", "gak", "gal", "gam", "gan", "gap", 
+  "gar", "gas", "gat", "gaw", "gay", "gds", "ged", "gee", "gel", "gem", 
+  "gen", "geo", "get", "gey", "ghi", "gib", "gid", "gie", "gig", "gin", 
+  "gio", "gip", "gis", "git", "gju", "glb", "gld", "gnu", "goa", "gob", 
+  "god", "goe", "goi", "gon", "goo", "gor", "gos", "got", "gov", "gox", 
+  "goy", "gpd", "gph", "gpm", "gps", "grr", "gsm", "gtd", "gub", "gue", 
+  "gul", "gum", "gun", "gup", "gur", "gus", "gut", "guv", "guy", "gym", 
+  "gyp",
+    # ... (add more 3-letter words as needed)
+]
+
+# Convert standard dictionary to a high-speed hashing Set
+real_words_set = set(dictionary_array)
+
+# 2. Generate all combinations natively
+letters = string.ascii_lowercase
+all_combinations = [i + j + k for i in letters for j in letters for k in letters]
+
+# 3. Match against your inline set
+valid_words = [word for word in all_combinations if word in real_words_set]
+
+#print(f"Offline execution complete! Matched {len(valid_words)} words.")
+#print(valid_words)
+def g(n,p,l):
+  hil=n.index(list(p[l])[0]),n.index(list(p[l])[1]),n.index(list(p[l])[2])
+  return hil
+my_dict={}
+for i in range(0,len(dictionary_array)):
+    iopp=g(a,dictionary_array,i) 
+    j=human(a,ab,iopp[0],iopp[1],iopp[2])
+    my_dict[j[1]] = j[0]
+print(my_dict)
