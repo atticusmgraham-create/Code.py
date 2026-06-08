@@ -36,7 +36,7 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
       ans[i]=ans[i]*math.cos(angle[i])
      for i in range(0,len(angle)):
         ans[i]=ans[i]*o
-     print("measurements",ans)
+     #print("measurements",ans)
      return ans
     c=vect(pl,h,k,l,od)
     g=vect(ui,p,i,e,r)
@@ -51,8 +51,8 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     psia= np.array(psi_nd, dtype=float)
     psia = psia / np.linalg.norm(psia)
     psid =psid/np.linalg.norm(psid)
-    print("state vector A: ",psia)
-    print("state vector B: ",psid)
+    #print("state vector A: ",psia)
+    #print("state vector B: ",psid)
     def projection(psi, i):
         return psi[i]
     basisa=np.eye(len(psia))
@@ -69,8 +69,8 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     Q, R = np.linalg.qr(basisa.T)  # QR decomposition
     
     basis = Q[:, :np.linalg.matrix_rank(basisa)]
-    print("m1:")
-    print(basis)
+    #print("m1:")
+    #print(basis)
     rankd = matrix_rank(basisb)
     D=2
     #print("Dimension of basis:", rank)
@@ -78,26 +78,26 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     P, K = np.linalg.qr(basisb.T)  # QR decomposition
     
     basisu = P[:, :np.linalg.matrix_rank(basisb)]
-    print("m2:")
-    print(basisu)
-    print("m3:")
-    print(basisu@basis)
+    #print("m2:")
+    #print(basisu)
+    #print("m3:")
+    #print(basisu@basis)
     c = np.linalg.inv(basis) @ psia
     cd = np.linalg.inv(basisu) @ psid
-    print("coordinates for A:")
-    print(c)
-    print("coordinates for B:")
-    print(cd)
+    #print("coordinates for A:")
+    #print(c)
+    #print("coordinates for B:")
+    #print(cd)
     psic=c/np.linalg.norm(c)
     rhop=np.outer(psic,psic)
-    print("density matrix a:")
+    #print("density matrix a:")
     rhorp=rhop.reshape(2,2,2,2)
-    print(rhorp)
+    #print(rhorp)
     psiec=cd/np.linalg.norm(cd)
     rhodp=np.outer(psiec,psiec)
-    print("density matrix b:")
+    #print("density matrix b:")
     rhordp=rhodp.reshape(2,2,2,2)
-    print(rhordp)
+    #print(rhordp)
     #gs=projection(psia, 2) # amplitude of |2>
     #tb=(projection(psid, 2))  
     #a = np.array([1, 2, 3])   # system A (n=3)
@@ -109,8 +109,8 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
         for j in range(2):
     
             rho_A[i, j] = sum(rhorp[i, k, j, k] for k in range(2))
-    print("subsystem A: ")
-    print(rho_A)
+    #print("subsystem A: ")
+    #print(rho_A)
     rho_B = np.zeros((2, 2))
     
     for i in range(2):
@@ -118,8 +118,8 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
         for j in range(2):
     
             rho_B[i, j] = sum(rhordp[i, k, j, k] for k in range(2))
-    print("subsystem B: ")
-    print(rho_B)
+    #print("subsystem B: ")
+    #print(rho_B)
     purity = np.trace(rho_A @ rho_A)
     probA=entanglement_entropy(ev(rho_A))
     #print("purity A:", purity)
@@ -138,39 +138,39 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
     SLba=max(0.0,1.0-purityofBA)
     SLab=max(0.0,1.0-purityofAB)
     probBA=entanglement_entropy(ev(np.kron(rho_B,rho_A)))
-    print("entanglement B: ",probB)
-    print("entanglement BA: ",probBA)
+    #print("entanglement B: ",probB)
+    #print("entanglement BA: ",probBA)
     entangledB=-(probB*math.log(probB,2)+probBA*math.log(probBA,2))
-    print("entangelement BA and B equals:", entangledB)
+    #print("entangelement BA and B equals:", entangledB)
     
-    print("dimensions for system B:",D)
+    #print("dimensions for system B:",D)
     entangledBitsB=(D/(D-1))*SLb
     
-    print("entangled Bits for B and BA: ",entangledBitsB)
-    print("entanglement A: ",probA)
-    print("entanglement AB: ",probAB)
+    #print("entangled Bits for B and BA: ",entangledBitsB)
+    #print("entanglement A: ",probA)
+    #print("entanglement AB: ",probAB)
     
     entangledA=-(probA*math.log(probA,2)+probAB*math.log(probAB,2))
-    print("entangelement BA and B equals:", entangledA)
+    #print("entangelement BA and B equals:", entangledA)
     
-    print("dimensions for system A:",D)
+    #print("dimensions for system A:",D)
     entangledBitsA=(D/(D-1))*SLa
-    print("entangled Bits for A and AB: ",entangledBitsA)
-    print("entanglement A: ",probA)
-    print("entanglement B: ",probB)
+    #print("entangled Bits for A and AB: ",entangledBitsA)
+    #print("entanglement A: ",probA)
+    #print("entanglement B: ",probB)
     entangledBA=-(probA*math.log(probA,2)+probB*math.log(probB,2))
-    print("entangelement A and B equals:", entangledBA)
+    #print("entangelement A and B equals:", entangledBA)
     
-    print("dimensions for system A and system B:",D)
+    #print("dimensions for system A and system B:",D)
     entangledBitsba=(D/(D-1))*SLba
-    print("entangled Bits for A and B: ",entangledBitsba)
-    print("entanglement AB: ",probAB)
-    print("entanglement BA: ",probBA)
+    #print("entangled Bits for A and B: ",entangledBitsba)
+    #print("entanglement AB: ",probAB)
+    #print("entanglement BA: ",probBA)
     entangledAB=-(probAB*math.log(probAB,2)+probBA*math.log(probBA,2))
-    print("entangelement AB and BA equals:", entangledAB)
-    print("dimensions for system AB and system BA:",D)
+    #print("entangelement AB and BA equals:", entangledAB)
+    #print("dimensions for system AB and system BA:",D)
     entangledBitsab=(D/(D-1))*SLab
-    print("entangled Bits for AB and BA: ",entangledBitsab)
+    #print("entangled Bits for AB and BA: ",entangledBitsab)
     
     C_system_B = math.sqrt(max(0.0, entangledBitsB))
    
@@ -279,10 +279,11 @@ def Qs(h,k,l,od,p,i,e,r,pl,ui):
         print("=" * 46)
         
         return ranked_systems
-    
+
     results = compare_system_entanglement_pure_numpy(my_experiments)
     return AllQbits
-LO=Qs(4,5,6,7,8,9,1,1,1,3)
-print("The system is: ",sum(LO),"qubits")
-print(LO)
+for i in range(0,10):
+    LO=Qs(400+i,500+i,600+i,700+i,800+i,500+i,100+i,300+i,100,100)
+    print("The system is: ",sum(LO),"qubits")
+    print(LO)
 
