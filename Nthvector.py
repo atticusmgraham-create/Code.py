@@ -299,6 +299,13 @@ for i in range(0,k):
 M1=np.array([Xlist])
 M2=np.array([Ylist]).reshape(len(M1[0]),1)
 Matrixofstates=(M2@M1)*(M1@M2)
-eigenvalues = np.linalg.eigvals(Matrixofstates)
-print(eigenvalues)
+eigenvalues, eigenvectors = np.linalg.eig(Matrixofstates)
 
+descending_indices = np.argsort(np.abs(eigenvalues))[::-1]
+sorted_values = eigenvalues[descending_indices]
+sorted_vectors = eigenvectors[:, descending_indices]
+k = 2
+best_eigenvalues = sorted_values[:k]
+best_eigenvectors = sorted_vectors[:, :k]
+matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
+print("matrix shrinked:", matr)
