@@ -1,9 +1,17 @@
-for i in range(0,1):    
+def Qs(h,k,l,od,p,i,e,r,pl,ui):  
     import math
     import numpy as np
     from numpy.linalg import matrix_rank
     
-    
+    def findState(v):
+        import math
+        b=(1-math.sqrt((1-math.pow(v,2))))
+        return math.sqrt(b/2)
+    def findStates(v):
+        import math
+        b=(1+math.sqrt((1-math.pow(v,2))))
+        return math.sqrt(b/2)
+
     def entanglement_entropy(eigenvalues):
     
         return -sum(
@@ -30,8 +38,8 @@ for i in range(0,1):
         ans[i]=ans[i]*o
      print("measurements",ans)
      return ans
-    c=vect(2,2,56,2,2)
-    g=vect(2,2,2,2,2)
+    c=vect(pl,h,k,l,od)
+    g=vect(ui,p,i,e,r)
     
     norma = math.sqrt(sum(x*x for x in c))
     psi_n= [x / norma for x in c]
@@ -163,6 +171,15 @@ for i in range(0,1):
     print("dimensions for system AB and system BA:",D)
     entangledBitsab=(D/(D-1))*SLab
     print("entangled Bits for AB and BA: ",entangledBitsab)
+    
+    C_system_B = math.sqrt(max(0.0, entangledBitsB))
+    print(findState(C_system_B),"and",findStates(C_system_B))
+    C_system_A = math.sqrt(max(0.0, entangledBitsA))
+    print(findState(C_system_A),"and",findStates(C_system_A))
+    C_system_AB = math.sqrt(max(0.0, entangledBitsab))
+    #print(findState(C_system_AB),"and",findStates(C_system_AB))
+    C_system_BA = math.sqrt(max(0.0, entangledBitsba))
+    #print(findState(C_system_BA),"and",findStates(C_system_BA))
     entangledBits=np.array([entangledBitsA,entangledBitsB,entangledBitsab,entangledBitsba])
     entangledBitsAandB=np.array([entangledBitsA,entangledBitsB])
     entangledBitsABandBA=np.array([entangledBitsab,entangledBitsba])
@@ -268,3 +285,6 @@ for i in range(0,1):
         return ranked_systems
     
     results = compare_system_entanglement_pure_numpy(my_experiments)
+    
+LO=Qs(4,5,6,7,80,90,10,11,12,13)
+
