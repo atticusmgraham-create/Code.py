@@ -784,13 +784,25 @@ def o(target_values,other_dictd,maxk):
     ldfw=0
     for target in target_values:
     # Check if the target value exists as a key in the dictionary
-      if target in other_dictd and ldfw!=maxk:
+      if target in other_dictd:
         # Safely fetch the array stored under that key
         array = other_dictd[target]
         #print(f"Found target '{target}' as a key. Its array value is: {array}")
         ldfw+=1
-        return array
-klopi=o(threeLetterPrepositions,other_dict,50)  
-
-    
+      if(maxk==ldfw):
+          break
+    return array
+klopi=o(largeThreeLetterVerbs,other_dict,500)
+target_value=klopi[0]
+verb=""
+for key, value in other_dict.items():
+    if isinstance(value, list) and target_value in value:
+        verb=key
+noun=""
+klopi=o(threeLetterNouns,other_dict,500)
+target_value=klopi[0]
+for key, value in other_dict.items():
+    if isinstance(value, list) and target_value in value:
+        noun=key
+print(noun,verb)
 
