@@ -757,26 +757,27 @@ allThreeLetterAdjectives = [
   "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", 
   "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
 ]
-threeLetterPronouns = ["all", "any", "few", "her", "him", "his", "its", "one", "our", "she", "who", "you"]
+threeLetterPronouns = ['all', 'any', 'few', 'her', 'him', 'his', 'its', 'one', 'our', 'she', 'who', 'you']
 threeLetterPrepositions = [
-  "and", 
-  "bar", 
-  "but",
-  "cum", 
-  "for", 
-  "mid", 
-  "off", 
-  "out", 
-  "per", 
-  "pro", 
-  "sub", 
-  "til", 
-  "via" 
+  'and', 
+  'bar', 
+  'but',
+  'cum', 
+  'for', 
+  'mid', 
+  'off', 
+  'out', 
+  'per', 
+  'pro', 
+  'sub', 
+  'til', 
+  'via' 
 ]
 #print(dictionary_arrays)
 other_dict={}
-other_dict = dict(zip(hilo, dictionary_arrays))    
+other_dict = dict(zip(dictionary_arrays, hilo))    
 #print(other_dict)
+
 
 
         
