@@ -1,4 +1,5 @@
 import string
+import math
 def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):   
     def Qs(h,k,l,od,p,i,e,r,pl,ui):  
         import math
@@ -354,8 +355,9 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
     return state,val
 a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 ab=[]
-for i in range(0,26):    
-    e=x(a[i],6,6,6,6,6,6,6,0,6,0,i)
+for i in range(0,26): 
+    import random
+    e=x(a[i],4,6,6,6,6,6,6,0,6,0,i)
     #print(e[0])
     ab.append(e[0])
 def human(x,y,l,o,p):
@@ -518,4 +520,174 @@ for i in range(0,len(dictionary_array)):
     iopp=g(a,dictionary_array,i) 
     j=human(a,ab,iopp[0],iopp[1],iopp[2])
     my_dict[j[1]] = j[0]
-print(my_dict)
+hilo=[]
+for value in my_dict.values():
+    hilo.append(value)
+print(hilo)
+seen = set()
+duplicates = set()
+
+for value in hilo:
+    if value in seen:
+        duplicates.add(value)
+    else:
+        seen.add(value)
+
+print("repeats",list(duplicates)) 
+
+for i in range(0,14):
+    kl=list(duplicates)
+    ui=[]
+    for i in range(0,len(kl)):
+        ui.append(hilo.index(kl[i]))
+    print(ui)
+    for i in range(0,len(ui)):
+        hilo[ui[i]]=int(ui[i]*math.sin(i**3))
+    print(hilo)
+    seen = set()
+    duplicates = set()
+    for value in hilo:
+        if value in seen:
+            duplicates.add(value)
+        else:
+            seen.add(value)
+    
+    print("repeats",len(list(duplicates))) 
+dictionary_arrays = [
+    "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
+  "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
+  "ahs", "aid", "ail", "aim", "ain", "air", "ais", "ait", "aji", "aka", 
+  "ala", "alb", "ale", "all", "alp", "alt", "alu", "ama", "ami", "amp", 
+  "amu", "ana", "and", "ane", "ani", "ant", "any", "ape", "apo", "app", 
+  "apt", "arb", "arc", "ard", "are", "arf", "ark", "arm", "ars", "art", 
+  "ary", "ash", "ask", "asp", "ass", "ate", "auk", "ava", "ave", "avo", 
+  "awa", "awe", "awl", "awn", "axe", "aye",
+   "baa", "bac", "bad", "bae", "bag", "bah", "bal", "bam", "ban", "bao", 
+  "bap", "bar", "bas", "bat", "baw", "bay", "bed", "bee", "beg", "bel", 
+  "ben", "bes", "bet", "bey", "bez", "bib", "bid", "big", "bin", "bio", 
+  "bis", "bit", "biz", "boa", "bob", "bod", "bog", "boh", "boi", "bok", 
+  "bon", "boo", "bop", "bor", "bos", "bot", "bow", "box", "boy", "bra", 
+  "bro", "brr", "bru", "bub", "bud", "bug", "bum", "bun", "bur", "bus", 
+  "but", "buy", "bye", "bys",
+   "caa", "cab", "cad", "caf", "cag", "cal", "cam", "can", "cap", "car", 
+  "cat", "caw", "cay", "caz", "cee", "cel", "cep", "cha", "che", "chi", 
+  "cid", "cig", "cis", "cit", "cly", "cob", "cod", "cog", "col", "con", 
+  "coo", "cop", "coq", "cor", "cos", "cot", "cow", "cox", "coy", "coz", 
+  "cru", "cry", "cub", "cud", "cue", "cum", "cup", "cur", "cut", "cuz", 
+  "cwm","dab", "dad", "dae", "dag", "dah", "dak", "dal", "dam", "dan", "dap", 
+  "dar", "das", "daw", "day", "dbx", "deb", "dee", "def", "deg", "dei", 
+  "del", "den", "dep", "des", "dev", "dew", "dex", "dey", "dib", "did", 
+  "die", "dif", "dig", "dil", "dim", "din", "dip", "dis", "dit", "div", 
+  "dkg", "dkl", "dkm", "dlr", "dms", "dob", "doc", "dod", "doe", "dof", 
+  "dog", "doh", "dol", "dom", "don", "doo", "dop", "dor", "dos", "dot", 
+  "dow", "dox", "doy", "dpi", "dpt", "dry", "dso", "dsp", "dub", "duc", 
+  "dud", "due", "dug", "duh", "dui", "dum", "dun", "duo", "dup", "dur", 
+  "dux", "dwt", "dwy", "dye", "dyn", "dzo",  "ean", "ear", "eas", "eat", "eau", "ebb", "ech", "eco", "ecu", "edh", 
+  "eds", "eek", "eel", "een", "eew", "eff", "efs", "eft", "egg", "ego", 
+  "ehs", "eik", "eke", "eld", "elf", "elk", "ell", "elm", "els", "elt", 
+  "eme", "emo", "ems", "emu", "end", "ene", "eng", "ens", "eon", "era", 
+  "ere", "erf", "erg", "erk", "erm", "ern", "err", "ers", "ess", "est", 
+  "eta", "eth", "euk", "eve", "evo", "ewe", "ewk", "ewt", "exo", "exp", 
+  "ext", "eye",  "faa", "fab", "fad", "fae", "fag", "fah", "fam", "fan", "fap", "far", 
+  "fas", "fat", "fav", "faw", "fax", "fay", "fed", "fee", "feg", "feh", 
+  "fem", "fen", "fer", "fes", "fet", "feu", "few", "fey", "fez", "fib", 
+  "fid", "fie", "fig", "fil", "fin", "fir", "fit", "fix", "fiz", "flo", 
+  "flu", "fly", "fob", "foe", "fog", "foh", "fon", "foo", "fop", "for", 
+  "fou", "fox", "foy", "fra", "fro", "fry", "fub", "fud", "fug", "fum", 
+  "fun", "fur","gab", "gad", "gae", "gag", "gah", "gak", "gal", "gam", "gan", "gap", 
+  "gar", "gas", "gat", "gaw", "gay", "gds", "ged", "gee", "gel", "gem", 
+  "gen", "geo", "get", "gey", "ghi", "gib", "gid", "gie", "gig", "gin", 
+  "gio", "gip", "gis", "git", "gju", "glb", "gld", "gnu", "goa", "gob", 
+  "god", "goe", "goi", "gon", "goo", "gor", "gos", "got", "gov", "gox", 
+  "goy", "gpd", "gph", "gpm", "gps", "grr", "gsm", "gtd", "gub", "gue", 
+  "gul", "gum", "gun", "gup", "gur", "gus", "gut", "guv", "guy", "gym", 
+  "gyp",  "had", "hae", "hag", "hah", "haj", "ham", "han", "hao", "hap", "has", 
+  "hat", "haw", "hay", "heh", "hem", "hen", "hep", "her", "hes", "het", 
+  "hew", "hex", "hey", "hic", "hid", "hie", "him", "hin", "hip", "his", 
+  "hit", "hmm", "hoa", "hob", "hoc", "hod", "hoe", "hog", "hoh", "hoi", 
+  "hom", "hon", "hoo", "hop", "hos", "hot", "how", "hox", "hoy", "hub", 
+  "hue", "hug", "huh", "hui", "hum", "hun", "hup", "hut", "hye", "hyp", "ibn", "ice", "ich", "ick", "icy", "ide", "ids", "iff", "ifs", "igg", 
+  "ihp", "iid", "ilk", "ill", "imp", "imu", "inf", "ing", "ink", "inn", 
+  "ins", "int", "ion", "ios", "ipm", "ipr", "ips", "ire", "irk", "ish", 
+  "ism", "iso", "ist", "ita", "itd", "itr", "its", "iva", "ivy", "iwa", "iwi",  "jab", "jac", "jag", "jai", "jak", "jam", "jap", "jar", "jaw", "jay", 
+  "jee", "jen", "jer", "jet", "jeu", "jib", "jig", "jin", "jiz", "job", 
+  "joe", "jog", "jol", "jor", "jot", "jow", "joy", "jud", "jue", "jug", 
+  "jun", "jus", "jut",  "kab", "kae", "kaf", "kai", "kak", "kam", "kas", "kat", "kaw", "kay", 
+  "kea", "keb", "ked", "kef", "keg", "ken", "kep", "kes", "ket", "kex", 
+  "key", "khi", "kia", "kid", "kif", "kin", "kip", "kir", "kis", "kit", 
+  "koa", "kob", "koi", "kon", "kop", "kor", "kos", "kow", "kue", "kye", 
+  "kyu",  "lab", "lac", "lad", "lag", "lah", "lam", "lap", "lar", "las", "lat", 
+  "lav", "law", "lax", "lay", "lea", "led", "lee", "leg", "lei", "lek", 
+  "let", "leu", "lev", "lex", "ley", "lez", "lib", "lid", "lie", "lig", 
+  "lin", "lip", "lis", "lit", "loa", "lob", "lod", "log", "loo", "lop", 
+  "lor", "los", "lot", "lou", "low", "lox", "loy", "lud", "lug", "lum", 
+  "lun", "lur", "luv", "lux", "luz", "lye", "lym",  "maa", "mab", "mac", "mad", "mae", "mag", "mai", "mak", "mal", "mam", 
+  "man", "map", "mar", "mas", "mat", "maw", "max", "may", "med", "mee", 
+  "meg", "meh", "mel", "mem", "men", "mer", "mes", "met", "meu", "mew", 
+  "mho", "mib", "mic", "mid", "mig", "mil", "mim", "min", "mir", "mis", 
+  "mix", "miz", "mmm", "mna", "moa", "mob", "moc", "mod", "moe", "mog", 
+  "moi", "mol", "mom", "mon", "moo", "mop", "mor", "mos", "mot", "mou", 
+  "mow", "moy", "moz", "mud", "mug", "mum", "mun", "mus", "mut", "mux", 
+  "mwa", "myc",  "nab", "nad", "nae", "nag", "nah", "nam", "nan", "nao", "nap", "nas", 
+  "nat", "nav", "naw", "nay", "nde", "neb", "ned", "nee", "nef", "neg", 
+  "nek", "nep", "net", "new", "nib", "nid", "nie", "nil", "nim", "nip", 
+  "nis", "nit", "nix", "noa", "nob", "nod", "nog", "noh", "nom", "non", 
+  "noo", "nor", "nos", "not", "now", "nox", "noy", "nth", "nub", "nug", 
+  "nun", "nur", "nus", "nut", "nux", "nye", "nym", "nys",  "oad", "oaf", "oak", "oar", "oat", "oba", "obe", "obi", "obo", "obs", 
+  "obv", "oca", "och", "oda", "odd", "ode", "ods", "oer", "oes", "off", 
+  "oft", "ohm", "oho", "ohs", "ohv", "oik", "oil", "oka", "oke", "ola", 
+  "old", "ole", "olm", "oma", "oms", "one", "ono", "ons", "ony", "oof", 
+  "ooh", "oom", "oos", "oot", "ope", "ops", "opt", "ora", "orb", "orc", 
+  "ord", "ore", "orf", "org", "oro", "orp", "ors", "ort", "ose", "oud", 
+  "oui", "our", "ous", "out", "ova", "ovo", "owe", "owl", "own", "owt", 
+  "oxo", "oxy", "ozs",  "pac", "pad", "pah", "pak", "pal", "pam", "pan", "pap", "par", "pas", 
+  "pat", "pav", "paw", "pax", "pay", "pea", "pec", "ped", "pee", "peg", 
+  "peh", "pel", "pen", "pep", "per", "pes", "pet", "pew", "phi", "pho", 
+  "pht", "pia", "pic", "pie", "pig", "pin", "pip", "pir", "pis", "pit", 
+  "piu", "pix", "plu", "ply", "poa", "pod", "poh", "poi", "pol", "pom", 
+  "poo", "pop", "pos", "pot", "pow", "pox", "poz", "pre", "pro", "pry", 
+  "psi", "pst", "pub", "pud", "pug", "puh", "pul", "pun", "pup", "pur", 
+  "pus", "put", "puy", "pwn", "pya", "pye", "pyx","qat", "qis", "qua", "que", "qui", "quo",  "rab", "rad", "rag", "rah", "rai", "raj", "ram", "ran", "rap", "ras", 
+  "rat", "rav", "raw", "rax", "ray", "reb", "rec", "red", "ree", "ref", 
+  "reg", "reh", "rei", "rem", "ren", "reo", "rep", "res", "ret", "rev", 
+  "rew", "rex", "rez", "rho", "rhy", "ria", "rib", "rid", "rif", "rig", 
+  "rim", "rin", "rip", "rit", "riz", "rob", "roc", "rod", "roe", "rok", 
+  "rom", "roo", "rot", "row", "rub", "ruc", "rud", "rue", "rug", "run", 
+  "rut", "rya", "rye", "ryu",  "sab", "sac", "sad", "sae", "sag", "sai", "sal", "sam", "san", "sap", 
+  "sar", "sat", "sau", "sav", "saw", "sax", "say", "saz", "sea", "sec", 
+  "sed", "see", "seg", "sei", "sel", "sen", "ser", "set", "sev", "sew", 
+  "sex", "sey", "sez", "sha", "she", "shh", "sho", "shy", "sib", "sic", 
+  "sif", "sig", "sik", "sim", "sin", "sip", "sir", "sis", "sit", "six", 
+  "ska", "ski", "sky", "sly", "sma", "sny", "sob", "soc", "sod", "sog", 
+  "soh", "sol", "som", "son", "sop", "sos", "sot", "sou", "sov", "sow", 
+  "sox", "soy", "soz", "spa", "spy", "sri", "sty", "sub", "sud", "sue", 
+  "sug", "sui", "suk", "sum", "sun", "sup", "suq", "sur", "sus", "swy", 
+  "sye", "syn",  "tab", "tad", "tae", "tag", "tai", "taj", "tak", "tam", "tan", "tao", 
+  "tap", "tar", "tas", "tat", "tau", "tav", "taw", "tax", "tay", "tea", 
+  "tec", "ted", "tee", "tef", "teg", "tel", "ten", "tes", "tet", "tew", 
+  "tex", "the", "tho", "thy", "tic", "tid", "tie", "tig", "tik", "til", 
+  "tin", "tip", "tis", "tit", "tix", "tiz", "toc", "tod", "toe", "tog", 
+  "tom", "ton", "too", "top", "tor", "tot", "tow", "toy", "try", "tsk", 
+  "tub", "tug", "tui", "tum", "tun", "tup", "tut", "tux", "twa", "two", 
+  "twp", "tye", "tyg",  "udo", "uds", "uey", "ufo", "ugh", "ugs", "uke", "ule", 
+  "ulu", "ume", "umm", "ump", "ums", "umu", "uni", "uns", 
+  "upo", "ups", "urb", "urd", "ure", "urn", "urp", "use", 
+  "uta", "ute", "uts", "utu", "uva", "uwu",  "vac", "vae", "vag", "van", "var", "vas", "vat", "vau", "vav", "vaw", 
+  "vax", "vee", "veg", "vet", "vex", "vey", "via", "vid", "vie", "vig", 
+  "vim", "vin", "vip", "vir", "vis", "viz", "vly", "voe", "vog", "vol", 
+  "vom", "von", "vor", "vow", "vox", "vug", "vum",  "wab", "wad", "wae", "wag", "wah", "wai", "wan", "wap", "war", "was", 
+  "wat", "waw", "wax", "way", "waz", "web", "wed", "wee", "wem", "wen", 
+  "wet", "wex", "wey", "wha", "who", "why", "wig", "win", "wis", "wit", 
+  "wiz", "woe", "wof", "wok", "won", "woo", "wop", "wos", "wot", "wow", 
+  "wox", "wry", "wud", "wus", "wuz", "wye", "wyn","xed", "xes", "xis",  "yaa", "yad", "yae", "yag", "yah", "yak", "yam", "yap", "yar", "yas", 
+  "yaw", "yay", "yea", "yed", "yeh", "yen", "yep", "yer", "yes", "yet", 
+  "yew", "yex", "yey", "yez", "ygo", "yid", "yin", "yip", "yiz", "yob", 
+  "yod", "yok", "yom", "yon", "you", "yow", "yrs", "yug", "yuk", "yum", 
+  "yup", "yus",  "zag", "zap", "zas", "zax", "zea", "zed", "zee", "zek", 
+  "zel", "zen", "zep", "zex", "zho", "zig", "zin", "zip", 
+  "zit", "ziz", "zoa", "zol", "zoo", "zos", "zuz", "zzz",
+    # ... (add more 3-letter words as needed)
+]
+print(dictionary_arrays)
+other_dict={}
+other_dict = dict(zip(hilo, dictionary_arrays))
