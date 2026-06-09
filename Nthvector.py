@@ -523,7 +523,7 @@ for i in range(0,len(dictionary_array)):
 hilo=[]
 for value in my_dict.values():
     hilo.append(value)
-print(hilo)
+#print(hilo)
 seen = set()
 duplicates = set()
 
@@ -533,9 +533,9 @@ for value in hilo:
     else:
         seen.add(value)
 
-print("repeats",list(duplicates)) 
+#print("repeats",list(duplicates)) 
 
-for i in range(0,14):
+for i in range(0,20):
     kl=list(duplicates)
     ui=[]
     for i in range(0,len(kl)):
@@ -552,7 +552,7 @@ for i in range(0,14):
         else:
             seen.add(value)
     
-    print("repeats",len(list(duplicates))) 
+    #print("repeats",len(list(duplicates))) 
 dictionary_arrays = [
     "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
   "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
@@ -688,6 +688,8 @@ dictionary_arrays = [
   "zit", "ziz", "zoa", "zol", "zoo", "zos", "zuz", "zzz",
     # ... (add more 3-letter words as needed)
 ]
-print(dictionary_arrays)
+#print(dictionary_arrays)
 other_dict={}
-other_dict = dict(zip(hilo, dictionary_arrays))
+other_dict = dict(zip(hilo, dictionary_arrays))    
+print(other_dict)
+
