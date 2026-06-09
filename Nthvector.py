@@ -1,17 +1,17 @@
 import string
 import math
-def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):   
-    def Qs(h,k,l,od,p,i,e,r,pl,ui):  
-        import math
+def x(val,h,k,lds,od,p,i,e,r,pl,ui,kol):   
+    def Qs(h,k,lds,od,p,i,e,r,pl,ui):  
+        
         import numpy as np
-        from numpy.linalg import matrix_rank
+        #from numpy.linalg import matrix_rank
         
         def findState(v):
-            import math
+            
             b=(1-math.sqrt((1-math.pow(v,2))))
             return math.sqrt(b/2)
         def findStates(v):
-            import math
+            
             b=(1+math.sqrt((1-math.pow(v,2))))
             return math.sqrt(b/2)
     
@@ -41,7 +41,7 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
             ans[i]=ans[i]*o
          #print("measurements",ans)
          return ans
-        c=vect(pl,h,k,l,od)
+        c=vect(pl,h,k,lds,od)
         g=vect(ui,p,i,e,r)
         
         norma = math.sqrt(sum(x*x for x in c))
@@ -64,7 +64,7 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
         #print(basisa)
         
         
-        rank = matrix_rank(basisa)
+        #rank = matrix_rank(basisa)
         
         #print("Dimension of basis:", rank)
         
@@ -72,39 +72,27 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
         Q, R = np.linalg.qr(basisa.T)  # QR decomposition
         
         basis = Q[:, :np.linalg.matrix_rank(basisa)]
-        #print("m1:")
-        #print(basis)
-        rankd = matrix_rank(basisb)
+
         D=2
-        #print("Dimension of basis:", rank)
+   
         
         P, K = np.linalg.qr(basisb.T)  # QR decomposition
         
         basisu = P[:, :np.linalg.matrix_rank(basisb)]
-        #print("m2:")
-        #print(basisu)
-        #print("m3:")
-        #print(basisu@basis)
+
         c = np.linalg.inv(basis) @ psia
         cd = np.linalg.inv(basisu) @ psid
-        #print("coordinates for A:")
-        #print(c)
-        #print("coordinates for B:")
-        #print(cd)
+
         psic=c/np.linalg.norm(c)
         rhop=np.outer(psic,psic)
-        #print("density matrix a:")
+       
         rhorp=rhop.reshape(2,2,2,2)
-        #print(rhorp)
+        
         psiec=cd/np.linalg.norm(cd)
         rhodp=np.outer(psiec,psiec)
-        #print("density matrix b:")
+       
         rhordp=rhodp.reshape(2,2,2,2)
-        #print(rhordp)
-        #gs=projection(psia, 2) # amplitude of |2>
-        #tb=(projection(psid, 2))  
-        #a = np.array([1, 2, 3])   # system A (n=3)
-        #b = np.array([4, 5, 6])
+
         rho_A = np.zeros((2, 2))
         
         for i in range(2):
@@ -179,25 +167,26 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
        
         C_system_A = math.sqrt(max(0.0, entangledBitsA))
         AllQbits=[findState(C_system_A),findStates(C_system_A),findState(C_system_B),findStates(C_system_B)]
-        entangledBits=np.array([entangledBitsA,entangledBitsB,entangledBitsab,entangledBitsba])
-        entangledBitsAandB=np.array([entangledBitsA,entangledBitsB])
-        entangledBitsABandBA=np.array([entangledBitsab,entangledBitsba])
-        entangledBitsABandA=np.array([entangledBitsab,entangledBitsA])
-        entangledBitsBAandB=np.array([entangledBitsba,entangledBitsB])
-        entangledBitsABandB=np.array([entangledBitsab,entangledBitsB])
-        entangledBitsBAandA=np.array([entangledBitsba,entangledBitsA])
+        #entangledBits=np.array([entangledBitsA,entangledBitsB,entangledBitsab,entangledBitsba])
+        #entangledBitsAandB=np.array([entangledBitsA,entangledBitsB])
+        #entangledBitsABandBA=np.array([entangledBitsab,entangledBitsba])
+        #entangledBitsABandA=np.array([entangledBitsab,entangledBitsA])
+        #entangledBitsBAandB=np.array([entangledBitsba,entangledBitsB])
         
-        my_experiments = {
-            "ALL systems": entangledBits,
-            "System A and B": entangledBitsAandB,
-            "System A and AB": entangledBitsABandA,
-            "System A and BA": entangledBitsBAandA,
-            "System B and BA": entangledBitsBAandB,
-            "System B and AB": entangledBitsABandB,
-            "System AB and BA": entangledBitsABandBA
+        #entangledBitsABandB=np.array([entangledBitsab,entangledBitsB])
+        #entangledBitsBAandA=np.array([entangledBitsba,entangledBitsA])
+        
+        #my_experiments = {
+        #    "ALL systems": entangledBits,
+        #    "System A and B": entangledBitsAandB,
+        #    "System A and AB": entangledBitsABandA,
+        #    "System A and BA": entangledBitsBAandA,
+        #    "System B and BA": entangledBitsBAandB,
+        #    "System B and AB": entangledBitsABandB,
+        #    "System AB and BA": entangledBitsABandBA
             
         
-        }
+        #}
         def compare_system_entanglement_pure_numpy(systems_dict):
             """
             Compares and ranks the entanglement of multiple quantum systems without Qiskit.
@@ -283,7 +272,7 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
             
             return ranked_systems
     
-        results = compare_system_entanglement_pure_numpy(my_experiments)
+        #results = compare_system_entanglement_pure_numpy(my_experiments)
         return AllQbits
     import numpy as np
     Xlist=[]
@@ -304,10 +293,10 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
     eigenvalues, eigenvectors = np.linalg.eig(Matrixofstates)
     
     descending_indices = np.argsort(np.abs(eigenvalues))[::-1]
-    sorted_values = eigenvalues[descending_indices]
+    #sorted_values = eigenvalues[descending_indices]
     sorted_vectors = eigenvectors[:, descending_indices]
     
-    best_eigenvalues = sorted_values[:kol]
+    #best_eigenvalues = sorted_values[:kol]
     best_eigenvectors = sorted_vectors[:, :kol]
     matr=best_eigenvectors.T@Matrixofstates@best_eigenvectors
     #print("new matrix:", matr)
@@ -360,8 +349,8 @@ for i in range(0,26):
     e=x(a[i],4,6,6,6,6,6,6,0,6,0,i)
     #print(e[0])
     ab.append(e[0])
-def human(x,y,l,o,p):
-    return y[l]-y[o]-y[p],x[l]+x[o]+x[p]
+def human(x,y,lde,o,p):
+    return y[lde]-y[o]-y[p],x[lde]+x[o]+x[p]
 
 
 dictionary_array = [
@@ -512,8 +501,8 @@ valid_words = [word for word in all_combinations if word in real_words_set]
 
 #print(f"Offline execution complete! Matched {len(valid_words)} words.")
 #print(valid_words)
-def g(n,p,l):
-  hil=n.index(list(p[l])[0]),n.index(list(p[l])[1]),n.index(list(p[l])[2])
+def g(n,p,ldf):
+  hil=n.index(list(p[ldf])[0]),n.index(list(p[ldf])[1]),n.index(list(p[ldf])[2])
   return hil
 my_dict={}
 for i in range(0,len(dictionary_array)):
