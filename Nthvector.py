@@ -743,16 +743,28 @@ threeLetterPrepositions = [
 other_dict={}
 other_dict = dict(zip(dictionary_arrays, hilo))    
 
-for i in range(0,len(threeLetterNouns)):
-    if threeLetterNouns[i] in other_dict:
-        other_dict[threeLetterNouns[i]]=[hilo[i]]
-        other_dict[threeLetterNouns[i]].append(1)
-for i in range(0,len(largeThreeLetterVerbs)):
-    if largeThreeLetterVerbs[i] in other_dict:
-        other_dict[largeThreeLetterVerbs[i]]=[hilo[i]]
-        other_dict[threeLetterNouns[i]].append(2)
+for idf in range(0,len(threeLetterNouns)):
+    if threeLetterNouns[idf] in other_dict:
+        other_dict[threeLetterNouns[idf]]=[hilo[idf]]
+        other_dict[threeLetterNouns[idf]].append(1)
+for ilo in range(0,len(largeThreeLetterVerbs)):
+    if largeThreeLetterVerbs[ilo] in other_dict:
+        other_dict[largeThreeLetterVerbs[ilo]]=[hilo[ilo]]
+        other_dict[largeThreeLetterVerbs[ilo]].append(2)
+for isuo in range(0,len(allThreeLetterAdverbs)):
+    if allThreeLetterAdverbs[isuo] in other_dict:
+        other_dict[allThreeLetterAdverbs[isuo]]=[hilo[isuo]]
+        other_dict[allThreeLetterAdverbs[isuo]].append(3)
+for iopl in range(0,len(allThreeLetterAdjectives)):
+    if allThreeLetterAdjectives[iopl] in other_dict:
+        other_dict[allThreeLetterAdjectives[iopl]]=[hilo[iopl]]
+        other_dict[allThreeLetterAdjectives[iopl]].append(4)
+for iiu in range(0,len(threeLetterPronouns)):
+    if threeLetterPronouns[iiu] in other_dict:
+        other_dict[threeLetterPronouns[iiu]]=[hilo[iiu]]
+        other_dict[threeLetterPronouns[iiu]].append(5)
+for iople in range(0,len(threeLetterPrepositions)):
+    if threeLetterPrepositions[iople] in other_dict:
+        other_dict[threeLetterPrepositions[iople]]=[hilo[iople]]
+        other_dict[threeLetterPrepositions[iople]].append(6)
 print(other_dict)    
-        
-    
-
-
