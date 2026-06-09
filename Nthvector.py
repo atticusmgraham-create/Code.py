@@ -784,25 +784,36 @@ def o(target_values,other_dictd,maxk):
     ldfw=0
     for target in target_values:
     # Check if the target value exists as a key in the dictionary
-      if target in other_dictd:
+      if target in other_dictd and ldfw>=maxk:
         # Safely fetch the array stored under that key
         array = other_dictd[target]
+        return array
         #print(f"Found target '{target}' as a key. Its array value is: {array}")
-        ldfw+=1
-      if(maxk==ldfw):
-          break
-    return array
-klopi=o(largeThreeLetterVerbs,other_dict,500)
+      ldfw+=1
+        
+klopi=o(largeThreeLetterVerbs,other_dict,50)
 target_value=klopi[0]
 verb=""
 for key, value in other_dict.items():
     if isinstance(value, list) and target_value in value:
         verb=key
 noun=""
-klopi=o(threeLetterNouns,other_dict,500)
-target_value=klopi[0]
+klopid=o(threeLetterNouns,other_dict,500)
+target_value=klopid[0]
 for key, value in other_dict.items():
     if isinstance(value, list) and target_value in value:
         noun=key
+pronoun=""
+klopiol=o(threeLetterPronouns,other_dict,4)
+target_value=klopiol[0]
+for key, value in other_dict.items():
+    if isinstance(value, list) and target_value in value:
+        pronoun=key
+adverb=""
+klopio=o(allThreeLetterAdverbs,other_dict,5)
+target_value=klopio[0]
+for key, value in other_dict.items():
+    if isinstance(value, list) and target_value in value:
+        adverb=key
 print(noun,verb)
 
