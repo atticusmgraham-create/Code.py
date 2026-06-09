@@ -410,7 +410,15 @@ dictionary_array = [
   "god", "goe", "goi", "gon", "goo", "gor", "gos", "got", "gov", "gox", 
   "goy", "gpd", "gph", "gpm", "gps", "grr", "gsm", "gtd", "gub", "gue", 
   "gul", "gum", "gun", "gup", "gur", "gus", "gut", "guv", "guy", "gym", 
-  "gyp",
+  "gyp",  "had", "hae", "hag", "hah", "haj", "ham", "han", "hao", "hap", "has", 
+  "hat", "haw", "hay", "heh", "hem", "hen", "hep", "her", "hes", "het", 
+  "hew", "hex", "hey", "hic", "hid", "hie", "him", "hin", "hip", "his", 
+  "hit", "hmm", "hoa", "hob", "hoc", "hod", "hoe", "hog", "hoh", "hoi", 
+  "hom", "hon", "hoo", "hop", "hos", "hot", "how", "hox", "hoy", "hub", 
+  "hue", "hug", "huh", "hui", "hum", "hun", "hup", "hut", "hye", "hyp", "ibn", "ice", "ich", "ick", "icy", "ide", "ids", "iff", "ifs", "igg", 
+  "ihp", "iid", "ilk", "ill", "imp", "imu", "inf", "ing", "ink", "inn", 
+  "ins", "int", "ion", "ios", "ipm", "ipr", "ips", "ire", "irk", "ish", 
+  "ism", "iso", "ist", "ita", "itd", "itr", "its", "iva", "ivy", "iwa", "iwi",
     # ... (add more 3-letter words as needed)
 ]
 
