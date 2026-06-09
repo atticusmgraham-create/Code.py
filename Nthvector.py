@@ -522,14 +522,14 @@ for value in hilo:
     else:
         seen.add(value)
 
-print("repeats",len(list(duplicates))) 
+#print("repeats",len(list(duplicates))) 
 
 for i in range(0,20):
     kl=list(duplicates)
     ui=[]
     for i in range(0,len(kl)):
         ui.append(hilo.index(kl[i]))
-    print(ui)
+    #print(ui)
     for i in range(0,len(ui)):
         hilo[ui[i]]=int(ui[i]*math.sin(i**3))
     #print(hilo)
@@ -541,7 +541,7 @@ for i in range(0,20):
         else:
             seen.add(value)
     
-    print("repeats",len(list(duplicates))) 
+    #print("repeats",len(list(duplicates))) 
 dictionary_arrays = [
     "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
   "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
@@ -680,5 +680,6 @@ dictionary_arrays = [
 #print(dictionary_arrays)
 other_dict={}
 other_dict = dict(zip(hilo, dictionary_arrays))    
-print(other_dict)
+#print(other_dict)
+print(other_dict[hilo[4]])
 
