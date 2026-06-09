@@ -489,6 +489,7 @@ dictionary_array = [
     # ... (add more 3-letter words as needed)
 ]
 
+
 # Convert standard dictionary to a high-speed hashing Set
 real_words_set = set(dictionary_array)
 
@@ -540,8 +541,7 @@ for i in range(0,20):
             duplicates.add(value)
         else:
             seen.add(value)
-    
-    print("repeats",len(list(duplicates))) 
+#print("repeats",len(list(duplicates))) 
 dictionary_arrays = [
     "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
   "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
@@ -730,7 +730,7 @@ allThreeLetterAdverbs = [
 ]
 #4
 allThreeLetterAdjectives = [
- "ace", "all", "alt", "any", "apt", "bad", "big", "bio", "coy", "cut", "def", "dim", "dry", "due", "eco", "far", "fat", "few", "fit", "fly", "fun", "fur", "gay", "goy", "hot", "icy", "ill", "key", "lax", "low", "mad", "mid", "neo", "new", "nil", "odd", "off", "old", "one", "out", "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
+ "ace", "all", "alt", "any", "apt", "bad", "big", "bio", "coy", "cut", "def","ten" ,"dim", "dry", "due", "eco", "far", "fat", "few", "fit", "fly", "fun", "fur", "gay", "goy", "hot", "icy", "ill", "key", "lax", "low", "mad", "mid", "neo", "new", "nil", "odd", "off", "old", "one", "out", "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
 ]
 
 #5
@@ -739,20 +739,56 @@ threeLetterPronouns = ["all", "any", "few", "her", "him", "his", "its", "one", "
 threeLetterPrepositions = [
 "and", "bar", "but", "cum", "for", "mid", "off", "out", "per", "pro", "sub", "til", "via"
 ]
+
 #print(dictionary_arrays)
 other_dict={}
 other_dict = dict(zip(dictionary_arrays, hilo))    
-
-for i in range(0,len(threeLetterNouns)):
-    if threeLetterNouns[i] in other_dict:
-        other_dict[threeLetterNouns[i]]=[hilo[i]]
-        other_dict[threeLetterNouns[i]].append(1)
-for i in range(0,len(largeThreeLetterVerbs)):
-    if largeThreeLetterVerbs[i] in other_dict:
-        other_dict[largeThreeLetterVerbs[i]]=[hilo[i]]
-        other_dict[threeLetterNouns[i]].append(2)
-print(other_dict)    
-        
+other_dict['aah']=3
+hilo[0]=3
+other_dict['aal']=4
+hilo[1]=4
+other_dict['aas']=5
+hilo[2]=5
+other_dict['aba']=6
+hilo[3]=6
+other_dict['yay']=7
+hilo[1350]=7
+seen = set()
+duplicates = set()
+for idf in range(0,len(threeLetterNouns)):
+    if threeLetterNouns[idf] in other_dict:
+        other_dict[threeLetterNouns[idf]]=[other_dict.get(threeLetterNouns[idf])]
+        other_dict[threeLetterNouns[idf]].append(1)
+for ilo in range(0,len(largeThreeLetterVerbs)):
+    if largeThreeLetterVerbs[ilo] in other_dict:
+        other_dict[largeThreeLetterVerbs[ilo]]=[other_dict.get(largeThreeLetterVerbs[ilo])]
+        other_dict[largeThreeLetterVerbs[ilo]].append(2)
+for isuo in range(0,len(allThreeLetterAdverbs)):
+    if allThreeLetterAdverbs[isuo] in other_dict:
+        other_dict[allThreeLetterAdverbs[isuo]]=[other_dict.get(allThreeLetterAdverbs[isuo])]
+        other_dict[allThreeLetterAdverbs[isuo]].append(3)
+for iopl in range(0,len(allThreeLetterAdjectives)):
+    if allThreeLetterAdjectives[iopl] in other_dict:
+        other_dict[allThreeLetterAdjectives[iopl]]=[other_dict.get(allThreeLetterAdjectives[iopl])]
+        other_dict[allThreeLetterAdjectives[iopl]].append(4)
+for iiu in range(0,len(threeLetterPronouns)):
+    if threeLetterPronouns[iiu] in other_dict:
+        other_dict[threeLetterPronouns[iiu]]=[other_dict.get(threeLetterPronouns[iiu])]
+        other_dict[threeLetterPronouns[iiu]].append(5)
+for iople in range(0,len(threeLetterPrepositions)):
+    if threeLetterPrepositions[iople] in other_dict:
+        other_dict[threeLetterPrepositions[iople]]=[other_dict.get(threeLetterPrepositions[iople])]
+        other_dict[threeLetterPrepositions[iople]].append(6)
+#print(other_dict) 
+def o(target_values,other_dictd,maxk):
+    for target in target_values:
+    # Check if the target value exists as a key in the dictionary
+      if target in other_dictd:
+        # Safely fetch the array stored under that key
+        array = other_dictd[target]
+        #print(f"Found target '{target}' as a key. Its array value is: {array}")
+        if(target==maxk):
+            break
+    return array
+print(o(threeLetterPronouns,other_dict,5))
     
-
-
