@@ -781,13 +781,16 @@ for iople in range(0,len(threeLetterPrepositions)):
         other_dict[threeLetterPrepositions[iople]].append(6)
 #print(other_dict) 
 def o(target_values,other_dictd,maxk):
+    ldfw=0
     for target in target_values:
     # Check if the target value exists as a key in the dictionary
       if target in other_dictd:
         # Safely fetch the array stored under that key
         array = other_dictd[target]
         #print(f"Found target '{target}' as a key. Its array value is: {array}")
-        if(target==maxk):
+        ldfw+=1
+        if(ldfw==maxk):
+            return array
             break
     return array
 print(o(threeLetterPronouns,other_dict,5))
