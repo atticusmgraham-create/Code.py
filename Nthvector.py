@@ -677,9 +677,106 @@ dictionary_arrays = [
   "zit", "ziz", "zoa", "zol", "zoo", "zos", "zuz", "zzz",
     # ... (add more 3-letter words as needed)
 ]
+threeLetterNouns = [
+
+  "ace", "act", "ado", "ads", "age", "aid", "aim", "air", "ale", "alp", "amp", "ant", "ape", "arc", "ark", "arm", "art", "ash", "asp", "ass", "auk", "awl", "axe", 
+  "bag", "bar", "bat", "bay", "bed", "bee", "beg", "bib", "bid", "bin", "bio", "bit", "boa", "bob", "bog", "boo", "bop", "bow", "box", "boy", "bra", "bro", "bud", "bug", "bum", "bun", "bur", "bus", "buy", "bye",
+  
+
+  "cab", "cad", "cam", "can", "cap", "car", "cat", "caw", "cee", "cel", "chi", "cob", "cod", "cog", "con", "coo", "cop", "cot", "cow", "cox", "coy", "cry", "cub", "cud", "cue", "cup", "cur", "cut",
+  "dad", "dam", "day", "deb", "den", "dew", "did", "die", "dig", "dim", "din", "dip", "doc", "doe", "dog", "don", "dot", "dry", "dub", "dud", "due", "dug", "duo", "dye",
+  "ear", "eat", "ebb", "eco", "eel", "egg", "ego", "elk", "ell", "elm", "emu", "end", "eon", "era", "erg", "eve", "ewe", "eye",
+  
+
+  "fad", "fag", "fan", "far", "fat", "fax", "fed", "fee", "fen", "fez", "fib", "fie", "fig", "fil", "fin", "fir", "fit", "fix", "flu", "fly", "fob", "foe", "fog", "fon", "fop", "fox", "fro", "fry", "fun", "fur",
+  "gab", "gad", "gag", "gal", "gam", "gap", "gas", "gat", "gel", "gem", "gen", "get", "gig", "gin", "gip", "gnu", "gob", "god", "goo", "got", "gum", "gun", "gut", "guy", "gym", "gyp",
+  "hag", "ham", "hat", "haw", "hay", "hem", "hen", "hew", "hex", "hey", "him", "hip", "hit", "hob", "hod", "hog", "hon", "hop", "hot", "how", "hub", "hue", "hug", "hum", "hun", "hut",
+  "ice", "ich", "ick", "icy", "ide", "iff", "igg", "ilk", "ill", "imp", "ink", "inn", "ion", "ire", "irk", "ish", "ism", "its", "ivy",
+  
+
+  "jab", "jag", "jam", "jar", "jaw", "jay", "jee", "jet", "jib", "jig", "job", "jog", "jot", "joy", "jug", "jun", "jut",
+  "keg", "ken", "key", "kid", "kin", "kip", "kit", "koa", "kob", "koi", "kop", "kos", "kue",
+  "lab", "lad", "lag", "lam", "lap", "law", "lax", "lay", "lea", "led", "lee", "leg", "lei", "lek", "let", "lex", "lid", "lie", "lip", "lit", "lob", "log", "loo", "lop", "lot", "low", "lox", "lug", "lum", "luv", "lux", "lye",
+  
+  
+  "mac", "mad", "mag", "man", "map", "mar", "mat", "maw", "max", "may", "med", "meg", "mel", "men", "met", "mew", "mid", "mig", "mil", "mim", "min", "mix", "moa", "mob", "moc", "mod", "mog", "mom", "mon", "moo", "mop", "mor", "mos", "mot", "mow", "mud", "mug", "mum", "mun", "mut", "mux", "mys",
+  "nab", "nae", "nag", "nah", "nan", "nap", "naw", "nay", "neb", "nee", "neg", "net", "new", "nib", "nil", "nim", "nip", "nit", "nix", "nob", "nod", "nog", "noh", "nom", "non", "noo", "nor", "nos", "not", "now", "nth", "nub", "nun", "nus", "nut", "nye",
+  "oaf", "oak", "oar", "oat", "oba", "obe", "obi", "oca", "och", "oct", "odd", "ode", "ods", "oes", "off", "oft", "ohm", "oho", "ohs", "oil", "oka", "oke", "old", "ole", "oms", "one", "ono", "ons", "oof", "oom", "oon", "oor", "oos", "oot", "ope", "ops", "opt", "ora", "orb", "orc", "ord", "ore", "org", "ors", "ort", "ose", "oud", "ouk", "our", "ous", "out", "ova", "owe", "owl", "own", "owt", "oxe", "oxo", "oxs", "oxy", "oye", "oys",
+  
+
+  "pac", "pad", "pal", "pam", "pan", "pap", "par", "pas", "pat", "paw", "pax", "pay", "pea", "pec", "ped", "pee", "peg", "peh", "pen", "pep", "per", "pes", "pet", "pew", "phi", "pho", "pht", "pia", "pic", "pie", "pig", "pin", "pip", "pis", "pit", "piu", "pix", "ple", "ply", "poa", "pod", "poh", "poi", "pol", "pom", "poo", "pop", "pos", "pot", "pow", "pox", "poy", "pre", "pro", "prow", "psi", "pst", "pub", "pud", "pug", "puj", "pun", "pup", "pur", "pus", "put", "puy", "pya", "pye", "pyx",
+  "qat", "qis", "qua", "quo",
+  "rad", "rag", "rah", "rai", "raj", "ram", "ran", "rap", "ras", "rat", "raw", "rax", "ray", "reb", "rec", "red", "ree", "ref", "reg", "rei", "rem", "ren", "reo", "rep", "res", "ret", "rev", "rew", "rex", "rez", "rho", "ria", "rib", "rid", "rif", "rig", "rim", "rin", "rip", "rit", "riv", "riz", "rob", "roc", "rod", "roe", "rok", "rom", "roo", "rot", "row", "rub", "rud", "rue", "rug", "rum", "run", "rut", "rya", "rye",
+  
+  
+  "sab", "sac", "sad", "sae", "sag", "sai", "sal", "sam", "san", "sap", "sar", "sat", "sau", "saw", "sax", "say", "sea", "sec", "sed", "see", "seg", "sei", "sel", "sen", "ser", "set", "sew", "sex", "sey", "fez", "shh", "sho", "shy", "sib", "sic", "sid", "sie", "sig", "sin", "sip", "sir", "sis", "sit", "six", "ska", "ski", "sky", "sob", "soc", "sod", "sof", "sog", "sol", "som", "son", "sop", "sos", "sot", "sou", "sow", "gox", "soy", "spa", "spy", "sub", "sud", "sue", "suk", "sum", "sun", "sup", "suq", "sur", "sus", "swy", "sye",
+  "tab", "tad", "tae", "tag", "tai", "taj", "tak", "tam", "tan", "tao", "tap", "tar", "tas", "tat", "tau", "tav", "taw", "tax", "tay", "tea", "tec", "ted", "tee", "teg", "tel", "ten", "tes", "tet", "tew", "tex", "the", "tho", "thy", "tic", "tid", "tie", "tig", "til", "tin", "tip", "tis", "tit", "tix", "tiz", "tod", "toe", "tog", "tom", "ton", "too", "top", "tor", "tot", "tow", "toy", "try", "tsk", "tub", "tug", "tui", "tum", "tun", "tup", "tut", "tux", "twa", "two", "twp", "tye", "tyg",
+  
+  
+  "udo", "ugh", "ugs", "uka", "uke", "ulu", "umm", "ump", "umu", "uni", "uns", "upo", "ups", "urn", "urp", "uru", "use", "uta", "ute", "uts", "uva", "vac", "vae", "vag", "van", "var", "vas", "vat", "vau", "vaw", "vax", "vee", "veg", "vei", "vending", "vet", "vex", "via", "vibe", "vid", "vie", "vig", "vim", "vin", "viny", "vis", "vly", "voe", "vol", "vom", "vow", "vox", "vug", "vum",
+  "wab", "wad", "wae", "wag", "wah", "wai", "waw", "wax", "way", "web", "wed", "wee", "wem", "wen", "wet", "wex", "wey", "wha", "who", "why", "wig", "win", "wis", "wit", "wiz", "woe", "wog", "wok", "won", "woo", "wop", "wos", "wot", "wow", "wry", "wud", "wus", "wye", "wyn",
+  "xat", "xis", "xoana", "xyst",
+  "yad", "yae", "yak", "yam", "yan", "yap", "yar", "yaw", "yay", "yea", "yeh", "yen", "yep", "yer", "yes", "yet", "yew", "yex", "ygo", "yin", "yip", "yob", "yod", "yok", "yom", "yon", "you", "yow", "yuk", "yum", "yup", "yus", "ywi",
+  "zaa", "zag", "zap", "zas", "zat", "zax", "zed", "zee", "zek", "zel", "zen", "zep", "zer", "zig", "zin", "zip", "zit", "ziz", "zoa", "zoo", "zos", "zuz", "zym"
+]
+largeThreeLetterVerbs = [
+  "act", "add", "aid", "aim", "ape", "arm", "ask", "awl", "ban", "bar",
+  "bat", "beg", "bet", "bid", "bit", "bow", "box", "bum", "buy", "can",
+  "cap", "cat", "caw", "con", "cop", "cow", "cry", "cue", "cup", "cum", "cut",
+  "dab", "dam", "day", "die", "dig", "dim", "din", "dip", "dog", "don",
+  "dot", "dry", "dub", "due", "dug", "dye", "eat", "ebb", "egg", "eke",
+  "end", "err", "eye", "fan", "fax", "fed", "fee", "fib", "fit", "fix",
+  "fly", "fog", "fox", "fry", "gab", "gag", "gel", "gem", "get", "gig",
+  "gin", "git", "got", "gum", "gun", "gut", "guy", "had", "hag", "ham",
+  "has", "hat", "haw", "hay", "hem", "hid", "hie", "hip", "hit", "hob",
+  "hoe", "hog", "hop", "hot", "hug", "hum", "hut", "ice", "ink", "inn",
+  "jab", "jag", "jam", "jar", "jaw", "jet", "jib", "jig", "job", "jog",
+  "jot", "joy", "jug", "jut", "keg", "ken", "kep", "key", "kid", "kin",
+  "kip", "kit", "lab", "lac", "lad", "lag", "lam", "lap", "law", "lax",
+  "lay", "led", "leg", "let", "lib", "lid", "lie", "lip", "lit", "lob",
+  "log", "loo", "lop", "lot", "low", "lox", "lug", "lum", "luv", "lux",
+  "mad", "man", "map", "mar", "mat", "maw", "max", "may", "met", "mew",
+  "mix", "mob", "moc", "mod", "mog", "moo", "mop", "mor", "mot", "mow"
+]
+allThreeLetterAdverbs = [
+  "aft", "ago", "all", "any", "awk", "bad", "bak", "ben", "big", "bis", 
+  "but", "cam", "dat", "den", "der", "dim", "doe", "due", "eek", "een", 
+  "eft", "eke", "ere", "esp", "eva", "far", "fay", "fra", "fro", "gey", 
+  "hea", "hen", "hoo", "how", "ill", "ish", "jes", "lak", "low", "mad", 
+  "moe", "muy", "nao", "nat", "net", "new", "nix", "non", "noo", "not", 
+  "now", "off", "oft", "oop", "orf", "orl", "out", "owt", "pat", "raw", 
+  "sam", "say", "sho", "sic", "sly", "str", "ter", "the", "tho", "tog", 
+  "top", "viz", "wai", "wat", "way", "wee", "wen", "why", "wis", "yay", 
+  "yea", "yep", "yer", "yet", "ygo", "yis", "yon", "yus"
+]
+allThreeLetterAdjectives = [
+  "ace", "all", "alt", "any", "apt", "bad", "big", "bio", "coy", "cut", 
+  "def", "dim", "dry", "due", "eco", "far", "fat", "few", "fit", "fly", 
+  "fun", "fur", "gay", "goy", "hot", "icy", "ill", "key", "lax", "low", 
+  "mad", "mid", "neo", "new", "nil", "odd", "off", "old", "one", "out", 
+  "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", 
+  "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
+]
+threeLetterPronouns = ["all", "any", "few", "her", "him", "his", "its", "one", "our", "she", "who", "you"]
+threeLetterPrepositions = [
+  "and", 
+  "bar", 
+  "but",
+  "cum", 
+  "for", 
+  "mid", 
+  "off", 
+  "out", 
+  "per", 
+  "pro", 
+  "sub", 
+  "til", 
+  "via" 
+]
 #print(dictionary_arrays)
 other_dict={}
 other_dict = dict(zip(hilo, dictionary_arrays))    
 #print(other_dict)
-print(other_dict[hilo[4]])
 
+
+        
