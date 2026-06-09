@@ -479,7 +479,7 @@ dictionary_array = [
   "wat", "waw", "wax", "way", "waz", "web", "wed", "wee", "wem", "wen", 
   "wet", "wex", "wey", "wha", "who", "why", "wig", "win", "wis", "wit", 
   "wiz", "woe", "wof", "wok", "won", "woo", "wop", "wos", "wot", "wow", 
-  "wox", "wry", "wud", "wus", "wuz", "wye", "wyn","xed", "xes", "xis",  "yaa", "yad", "yae", "yag", "yah", "yak", "yam", "yap", "yar", "yas", 
+  "wox", "wry", "wud", "wus", "wuz", "wye", "wyn","xat","xed", "xes", "xis","xon","xys",  "yaa", "yad", "yae", "yag", "yah", "yak", "yam", "yap", "yar", "yas", 
   "yaw", "yay", "yea", "yed", "yeh", "yen", "yep", "yer", "yes", "yet", 
   "yew", "yex", "yey", "yez", "ygo", "yid", "yin", "yip", "yiz", "yob", 
   "yod", "yok", "yom", "yon", "you", "yow", "yrs", "yug", "yuk", "yum", 
@@ -541,7 +541,7 @@ for i in range(0,20):
         else:
             seen.add(value)
     
-    #print("repeats",len(list(duplicates))) 
+    print("repeats",len(list(duplicates))) 
 dictionary_arrays = [
     "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
   "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
@@ -668,7 +668,7 @@ dictionary_arrays = [
   "wat", "waw", "wax", "way", "waz", "web", "wed", "wee", "wem", "wen", 
   "wet", "wex", "wey", "wha", "who", "why", "wig", "win", "wis", "wit", 
   "wiz", "woe", "wof", "wok", "won", "woo", "wop", "wos", "wot", "wow", 
-  "wox", "wry", "wud", "wus", "wuz", "wye", "wyn","xed", "xes", "xis",  "yaa", "yad", "yae", "yag", "yah", "yak", "yam", "yap", "yar", "yas", 
+  "wox", "wry", "wud", "wus", "wuz", "wye", "wyn","xat","xed", "xes", "xis","xon","xys",  "yaa", "yad", "yae", "yag", "yah", "yak", "yam", "yap", "yar", "yas", 
   "yaw", "yay", "yea", "yed", "yeh", "yen", "yep", "yer", "yes", "yet", 
   "yew", "yex", "yey", "yez", "ygo", "yid", "yin", "yip", "yiz", "yob", 
   "yod", "yok", "yom", "yon", "you", "yow", "yrs", "yug", "yuk", "yum", 
@@ -677,6 +677,7 @@ dictionary_arrays = [
   "zit", "ziz", "zoa", "zol", "zoo", "zos", "zuz", "zzz",
     # ... (add more 3-letter words as needed)
 ]
+#1
 threeLetterNouns = [
 
   "ace", "act", "ado", "ads", "age", "aid", "aim", "air", "ale", "alp", "amp", "ant", "ape", "arc", "ark", "arm", "art", "ash", "asp", "ass", "auk", "awl", "axe", 
@@ -715,69 +716,37 @@ threeLetterNouns = [
   
   "udo", "ugh", "ugs", "uka", "uke", "ulu", "umm", "ump", "umu", "uni", "uns", "upo", "ups", "urn", "urp", "uru", "use", "uta", "ute", "uts", "uva", "vac", "vae", "vag", "van", "var", "vas", "vat", "vau", "vaw", "vax", "vee", "veg", "vei", "vending", "vet", "vex", "via", "vibe", "vid", "vie", "vig", "vim", "vin", "viny", "vis", "vly", "voe", "vol", "vom", "vow", "vox", "vug", "vum",
   "wab", "wad", "wae", "wag", "wah", "wai", "waw", "wax", "way", "web", "wed", "wee", "wem", "wen", "wet", "wex", "wey", "wha", "who", "why", "wig", "win", "wis", "wit", "wiz", "woe", "wog", "wok", "won", "woo", "wop", "wos", "wot", "wow", "wry", "wud", "wus", "wye", "wyn",
-  "xat", "xis", "xoana", "xyst",
+  "xat", "xis", "xon", "xys",
   "yad", "yae", "yak", "yam", "yan", "yap", "yar", "yaw", "yay", "yea", "yeh", "yen", "yep", "yer", "yes", "yet", "yew", "yex", "ygo", "yin", "yip", "yob", "yod", "yok", "yom", "yon", "you", "yow", "yuk", "yum", "yup", "yus", "ywi",
   "zaa", "zag", "zap", "zas", "zat", "zax", "zed", "zee", "zek", "zel", "zen", "zep", "zer", "zig", "zin", "zip", "zit", "ziz", "zoa", "zoo", "zos", "zuz", "zym"
 ]
+#2
 largeThreeLetterVerbs = [
-  "act", "add", "aid", "aim", "ape", "arm", "ask", "awl", "ban", "bar",
-  "bat", "beg", "bet", "bid", "bit", "bow", "box", "bum", "buy", "can",
-  "cap", "cat", "caw", "con", "cop", "cow", "cry", "cue", "cup", "cum", "cut",
-  "dab", "dam", "day", "die", "dig", "dim", "din", "dip", "dog", "don",
-  "dot", "dry", "dub", "due", "dug", "dye", "eat", "ebb", "egg", "eke",
-  "end", "err", "eye", "fan", "fax", "fed", "fee", "fib", "fit", "fix",
-  "fly", "fog", "fox", "fry", "gab", "gag", "gel", "gem", "get", "gig",
-  "gin", "git", "got", "gum", "gun", "gut", "guy", "had", "hag", "ham",
-  "has", "hat", "haw", "hay", "hem", "hid", "hie", "hip", "hit", "hob",
-  "hoe", "hog", "hop", "hot", "hug", "hum", "hut", "ice", "ink", "inn",
-  "jab", "jag", "jam", "jar", "jaw", "jet", "jib", "jig", "job", "jog",
-  "jot", "joy", "jug", "jut", "keg", "ken", "kep", "key", "kid", "kin",
-  "kip", "kit", "lab", "lac", "lad", "lag", "lam", "lap", "law", "lax",
-  "lay", "led", "leg", "let", "lib", "lid", "lie", "lip", "lit", "lob",
-  "log", "loo", "lop", "lot", "low", "lox", "lug", "lum", "luv", "lux",
-  "mad", "man", "map", "mar", "mat", "maw", "max", "may", "met", "mew",
-  "mix", "mob", "moc", "mod", "mog", "moo", "mop", "mor", "mot", "mow"
+ "act", "add", "aid", "aim", "ape", "arm", "ask", "awl", "ban", "bar", "bat", "beg", "bet", "bid", "bit", "bow", "box", "bum", "buy", "can", "cap", "cat", "caw", "con", "cop", "cow", "cry", "cue", "cup", "cum", "cut", "dab", "dam", "day", "die", "dig", "dim", "din", "dip", "dog", "don", "dot", "dry", "dub", "due", "dug", "dye", "eat", "ebb", "egg", "eke", "end", "err", "eye", "fan", "fax", "fed", "fee", "fib", "fit", "fix", "fly", "fog", "fox", "fry", "gab", "gag", "gel", "gem", "get", "gig", "gin", "git", "got", "gum", "gun", "gut", "guy", "had", "hag", "ham", "has", "hat", "haw", "hay", "hem", "hid", "hie", "hip", "hit", "hob", "hoe", "hog", "hop", "hot", "hug", "hum", "hut", "ice", "ink", "inn", "jab", "jag", "jam", "jar", "jaw", "jet", "jib", "jig", "job", "jog", "jot", "joy", "jug", "jut", "keg", "ken", "kep", "key", "kid", "kin", "kip", "kit", "lab", "lac", "lad", "lag", "lam", "lap", "law", "lax", "lay", "led", "leg", "let", "lib", "lid", "lie", "lip", "lit", "lob", "log", "loo", "lop", "lot", "low", "lox", "lug", "lum", "luv", "lux", "mad", "man", "map", "mar", "mat", "maw", "max", "may", "met", "mew", "mix", "mob", "moc", "mod", "mog", "moo", "mop", "mor", "mot", "mow"
 ]
+#3
 allThreeLetterAdverbs = [
-  "aft", "ago", "all", "any", "awk", "bad", "bak", "ben", "big", "bis", 
-  "but", "cam", "dat", "den", "der", "dim", "doe", "due", "eek", "een", 
-  "eft", "eke", "ere", "esp", "eva", "far", "fay", "fra", "fro", "gey", 
-  "hea", "hen", "hoo", "how", "ill", "ish", "jes", "lak", "low", "mad", 
-  "moe", "muy", "nao", "nat", "net", "new", "nix", "non", "noo", "not", 
-  "now", "off", "oft", "oop", "orf", "orl", "out", "owt", "pat", "raw", 
-  "sam", "say", "sho", "sic", "sly", "str", "ter", "the", "tho", "tog", 
-  "top", "viz", "wai", "wat", "way", "wee", "wen", "why", "wis", "yay", 
-  "yea", "yep", "yer", "yet", "ygo", "yis", "yon", "yus"
+ "aft", "ago", "all", "any", "awk", "bad", "bak", "ben", "big", "bis", "but", "cam", "dat", "den", "der", "dim", "doe", "due", "eek", "een", "eft", "eke", "ere", "esp", "eva", "far", "fay", "fra", "fro", "gey", "hea", "hen", "hoo", "how", "ill", "ish", "jes", "lak", "low", "mad", "moe", "muy", "nao", "nat", "net", "new", "nix", "non", "noo", "not", "now", "off", "oft", "oop", "orf", "orl", "out", "owt", "pat", "raw", "sam", "say", "sho", "sic", "sly", "str", "ter", "the", "tho", "tog", "top", "viz", "wai", "wat", "way", "wee", "wen", "why", "wis", "yay", "yea", "yep", "yer", "yet", "ygo", "yis", "yon", "yus"
 ]
+#4
 allThreeLetterAdjectives = [
-  "ace", "all", "alt", "any", "apt", "bad", "big", "bio", "coy", "cut", 
-  "def", "dim", "dry", "due", "eco", "far", "fat", "few", "fit", "fly", 
-  "fun", "fur", "gay", "goy", "hot", "icy", "ill", "key", "lax", "low", 
-  "mad", "mid", "neo", "new", "nil", "odd", "off", "old", "one", "out", 
-  "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", 
-  "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
+ "ace", "all", "alt", "any", "apt", "bad", "big", "bio", "coy", "cut", "def", "dim", "dry", "due", "eco", "far", "fat", "few", "fit", "fly", "fun", "fur", "gay", "goy", "hot", "icy", "ill", "key", "lax", "low", "mad", "mid", "neo", "new", "nil", "odd", "off", "old", "one", "out", "own", "pop", "pro", "raw", "red", "sad", "set", "shy", "six", "sly", "sub", "tan", "top", "two", "uni", "wee", "wet", "wry", "zen"
 ]
-threeLetterPronouns = ['all', 'any', 'few', 'her', 'him', 'his', 'its', 'one', 'our', 'she', 'who', 'you']
+
+#5
+threeLetterPronouns = ["all", "any", "few", "her", "him", "his", "its", "one", "our", "she", "who", "you"]
+#6
 threeLetterPrepositions = [
-  'and', 
-  'bar', 
-  'but',
-  'cum', 
-  'for', 
-  'mid', 
-  'off', 
-  'out', 
-  'per', 
-  'pro', 
-  'sub', 
-  'til', 
-  'via' 
+"and", "bar", "but", "cum", "for", "mid", "off", "out", "per", "pro", "sub", "til", "via"
 ]
 #print(dictionary_arrays)
 other_dict={}
 other_dict = dict(zip(dictionary_arrays, hilo))    
-#print(other_dict)
-
-
-
+print(other_dict)
+#for i in range(0,len(threeLetterNouns)):
+    #if threeLetterNouns[i] in other_dict:
         
+        
+    
+
+
