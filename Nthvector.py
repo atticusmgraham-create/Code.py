@@ -356,7 +356,7 @@ def x(val,h,k,l,od,p,i,e,r,pl,ui,kol):
 a=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 ab=[]
 for i in range(0,26): 
-    import random
+
     e=x(a[i],4,6,6,6,6,6,6,0,6,0,i)
     #print(e[0])
     ab.append(e[0])
@@ -533,7 +533,7 @@ for value in hilo:
     else:
         seen.add(value)
 
-#print("repeats",list(duplicates)) 
+print("repeats",len(list(duplicates))) 
 
 for i in range(0,20):
     kl=list(duplicates)
@@ -543,7 +543,7 @@ for i in range(0,20):
     print(ui)
     for i in range(0,len(ui)):
         hilo[ui[i]]=int(ui[i]*math.sin(i**3))
-    print(hilo)
+    #print(hilo)
     seen = set()
     duplicates = set()
     for value in hilo:
@@ -552,7 +552,7 @@ for i in range(0,20):
         else:
             seen.add(value)
     
-    #print("repeats",len(list(duplicates))) 
+    print("repeats",len(list(duplicates))) 
 dictionary_arrays = [
     "aah", "aal", "aas", "aba", "abb", "abs", "aby", "ace", "act", "add", 
   "ado", "ads", "adz", "aff", "aft", "aga", "age", "ago", "aha", "ahi", 
