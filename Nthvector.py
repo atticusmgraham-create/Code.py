@@ -843,4 +843,5 @@ for i in range(0,10):
 def x(a,x,y):
     print(a[x][y])
     return a[x][y]
-x(g,0,5)
+def v(v,c,o):
+    return x(v,c,o)
