@@ -832,6 +832,9 @@ def h(other_dict,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdj
     for key, value in other_dict.items():
         if isinstance(value, list) and target_value in value:
             adjectives=key
-    return verb,adverb,adjectives,Prepositions,pronoun,noun,
-words=(h(other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns,3,9,34,2,10,10))
-print(words)
+    return verb,adverb,adjectives,Prepositions,pronoun,noun
+def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdjectivesd,threeLetterPrepositionsd,threeLetterNounsd,threeLetterPronounsd):
+    words=(h(other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdjectivesd,threeLetterPrepositionsd,threeLetterNounsd,threeLetterPronounsd,ad,da,ko,il,er,ur))
+    print(words)
+    return words
+iu(2,3,4,5,6,9,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns)
