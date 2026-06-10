@@ -843,7 +843,7 @@ for i in range(0,10):
 def x(a,x,y):
     print(a[x][y])
     return a[x][y]
-def v(v,c,o):
-    return x(v,c,o)
+def fa(n1,n2,n3,n4,n5,n6,n7,n8,n9,n10,n11,n12):
+    re=[[n1,n2],[n3,n4],[n5,n6],[n7,n8],[n9,n10],[n11,n12]]
+    return re
 
-print(x(g,4,5))
