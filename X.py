@@ -42,20 +42,3 @@ def is_plural(word):
     return False
 
 # --- TEST VERIFICATION ---
-test_words = {
-    "mice": True,       # Irregular plural
-    "cats": True,       # Standard plural
-    "boxes": True,      # -es plural
-    "babies": True,     # -ies plural
-    "leaves": True,     # -ves plural
-    "cat": False,       # Regular singular
-    "bus": False,       # Singular ending in -s
-    "physics": False,   # Singular academic discipline 
-}
-
-print("Running validation tests:")
-for word, expected in test_words.items():
-    result = is_plural(word)
-    status = "PASS" if result == expected else "FAIL"
-    print(f"  {word.ljust(10)} -> Found Plural: {str(result).ljust(5)} (Expected: {str(expected).ljust(5)}) [{status}]")
-#Use code with caution.Why this approach fixes the issueZero Dependency on Web Changes: The Free Dictionary API updates its data format often, causing properties like definitions[0] to randomly break. A local regex script remains stable.Solves the 404 Bug: You no longer have to worry about an external server throwing a connection error or hiding valid results behind a error code.Granular Control: If your code encounters specific words that break the rules (such as a unique slang word or an industry-specific noun), you can simply add it straight to the singular_exceptions or irregular_plurals sets at the top of the function.Are there specific words or datasets your code is evaluating that are still returning the wrong value?1 siteHow do you extract definition from Dictionary API?Apr 8, 2023 — Utkarsh_Seth April 8, 2023, 4:05pm 1. I am using https://dictionaryapi.dev/ API. Example https://api.dictionaryapi.dev/api/v2/entr...
