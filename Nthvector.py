@@ -1,7 +1,75 @@
 import string
 import math
 import re
+IRREGULAR_PAST = {
+    "was", "were", "went", "had", "saw", "ate", "drank", "flew", "came", 
+    "brought", "bought", "caught", "thought", "did", "said", "told", "heard", 
+    "ran", "sat", "spoke", "wrote", "read", "kept", "found", "gave", "made", "been"
+}
 
+# 2. Map of common nouns/adjectives ending in 'ed' or 'ing' to prevent false flags
+NON_VERB_EXCEPTION = {
+    "bed", "red", "fed", "led", "shed", "hundred", "sacred", "naked", "wicked", 
+    "talented", "tired", "bored", "thing", "ring", "king", "spring", "morning"
+}
+
+def clean_word(word: str) -> str:
+    """Removes punctuation and normalizes text."""
+    return "".join(c for c in word.lower() if c.isalnum())
+
+def get_verb_tense_no_library(sentence: str):
+    # Split the sentence into tokens and clean them
+    raw_words = sentence.split()
+    words = [clean_word(w) for w in raw_words if clean_word(w)]
+    
+    results = []
+    
+    for i, word in enumerate(words):
+        # Establish simple ahead/behind context checks
+        prev_word = words[i - 1] if i > 0 else ""
+        next_word = words[i + 1] if i + 1 < len(words) else ""
+        
+        # --- FUTURE TENSE CHECK ---
+        # "will" or "shall" followed by a base action verb
+        if word in ["will", "shall"] and next_word:
+            results.append({"word": f"{word} {next_word}", "tense": "Future"})
+            continue
+            
+        # Skip evaluating the action verb independently if it was captured as future tense above
+        if prev_word in ["will", "shall"]:
+            continue
+
+        # --- PAST TENSE CHECK ---
+        if word in IRREGULAR_PAST:
+            results.append({"word": word, "tense": "Past"})
+            continue
+        if word.endswith("ed") and word not in NON_VERB_EXCEPTION:
+            results.append({"word": word, "tense": "Past"})
+            continue
+
+        # --- PRESENT PARTICIPLE / CONTINUOUS CHECK ---
+        if word.endswith("ing") and word not in NON_VERB_EXCEPTION:
+            # If preceded by helper verbs (am, is, are, was, were), it's Continuous
+            if prev_word in ["am", "is", "are", "was", "were", "be", "been"]:
+                results.append({"word": f"{prev_word} {word}", "tense": "Continuous/Progressive"})
+            else:
+                results.append({"word": word, "tense": "Gerund / Present Participle"})
+            continue
+
+        # --- PRESENT TENSE CHECK ---
+        # Third-person singular verbs ending in 's' (e.g., eats, runs)
+        if word.endswith("s") and not word.endswith("ss") and len(word) > 3:
+            # Simple assumption: if it follows a common pronoun, it's a present verb
+            if prev_word in ["he", "she", "it", "who", "someone", "everyone"]:
+                results.append({"word": word, "tense": "Present (3rd Person)"})
+                continue
+                
+        # Fallback dictionary match for common static present base verbs
+        if word in ["eat", "run", "walk", "fly", "go", "do", "have", "has", "am", "is", "are"]:
+            results.append({"word": word, "tense": "Present"})
+            continue
+
+    return results
 
 def is_plural(word):
     word = word.strip().lower()
