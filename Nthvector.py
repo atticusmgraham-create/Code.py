@@ -839,8 +839,8 @@ def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverb
     return words
 g=[]
 for i in range(0,3):
-        g.append(iu(i+2,3+i,4+i,5+i,6+i,i,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+        g.append(iu(i+2,3+i,i+8,5+i,6+i,i,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
 def x(a,x,y):
     print(a[x][y])
     return a[x][y]
-x(g,2,0)
+x(g,0,5)
