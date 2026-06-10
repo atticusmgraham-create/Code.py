@@ -790,30 +790,43 @@ def o(target_values,other_dictd,maxk):
         return array
         #print(f"Found target '{target}' as a key. Its array value is: {array}")
       ldfw+=1
-        
-klopi=o(largeThreeLetterVerbs,other_dict,50)
-target_value=klopi[0]
-verb=""
-for key, value in other_dict.items():
-    if isinstance(value, list) and target_value in value:
-        verb=key
-noun=""
-klopid=o(threeLetterNouns,other_dict,500)
-target_value=klopid[0]
-for key, value in other_dict.items():
-    if isinstance(value, list) and target_value in value:
-        noun=key
-pronoun=""
-klopiol=o(threeLetterPronouns,other_dict,4)
-target_value=klopiol[0]
-for key, value in other_dict.items():
-    if isinstance(value, list) and target_value in value:
-        pronoun=key
-adverb=""
-klopio=o(allThreeLetterAdverbs,other_dict,5)
-target_value=klopio[0]
-for key, value in other_dict.items():
-    if isinstance(value, list) and target_value in value:
-        adverb=key
-print(noun,verb)
-
+def h(other_dictf,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdjectivesd,threeLetterPrepositionsd,threeLetterNounsd,threeLetterPronounsd,IY,IO,OP,ID,HU,HY):    
+    klopi=o(threeLetterPrepositionsd,other_dictf,IY)#1
+    target_value=klopi[0]
+    Prepositions=""
+    for key, value in other_dictf.items():
+        if isinstance(value, list) and target_value in value:
+            Prepositions=key
+    klopi=o(largeThreeLetterVerbsd,other_dictf,IO)#2
+    target_value=klopi[0]
+    verb=""
+    for key, value in other_dictf.items():
+        if isinstance(value, list) and target_value in value:
+            verb=key
+    noun=""
+    klopid=o(threeLetterNounsd,other_dictf,OP)#3
+    target_value=klopid[0]
+    for key, value in other_dict.items():
+        if isinstance(value, list) and target_value in value:
+            noun=key
+    pronoun=""
+    klopiol=o(threeLetterPronounsd,other_dict,ID)#4
+    target_value=klopiol[0]
+    for key, value in other_dict.items():
+        if isinstance(value, list) and target_value in value:
+            pronoun=key
+    adverb=""
+    klopio=o(allThreeLetterAdverbsd,other_dict,HU)#5
+    target_value=klopio[0]
+    for key, value in other_dict.items():
+        if isinstance(value, list) and target_value in value:
+            adverb=key
+    adjectives=""
+    klopio=o(allThreeLetterAdjectivesd,other_dict,HY)#6
+    target_value=klopio[0]
+    for key, value in other_dict.items():
+        if isinstance(value, list) and target_value in value:
+            adjectives=key
+    return verb,adverb,adjectives,Prepositions,pronoun,noun,
+words=(h(other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns,5,20,3,5,7,8))
+print(words)
