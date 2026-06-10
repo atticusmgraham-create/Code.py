@@ -1,5 +1,6 @@
 import string
 import math
+
 def x(val,h,k,lds,od,p,i,e,r,pl,ui,kol):   
     def Qs(h,k,lds,od,p,i,e,r,pl,ui):  
         
@@ -844,6 +845,7 @@ for i in range(0,10):
 def x(a,x,y):
     #print(a[x][y])
     return a[x][y]
-
+for i in range(0,10):
+    print("The "+g[i][5])
 
 
