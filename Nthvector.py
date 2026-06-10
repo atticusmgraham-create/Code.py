@@ -845,3 +845,5 @@ def x(a,x,y):
     return a[x][y]
 def v(v,c,o):
     return x(v,c,o)
+
+print(x(g,4,5))
