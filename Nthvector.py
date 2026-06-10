@@ -949,14 +949,28 @@ def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverb
     return words
 g=[]
 for i in range(0,10):
-        import random
-        g.append(iu(random.randint(0,len(largeThreeLetterVerbs)-1),random.randint(0,len(allThreeLetterAdverbs)-1),random.randint(0,len(allThreeLetterAdjectives)-1),random.randint(0,len(threeLetterPrepositions)-1),random.randint(0,len(threeLetterNouns)-1),random.randint(0,len(threeLetterPronouns)-1),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+            import random
+            g.append(iu(random.randint(0,len(largeThreeLetterVerbs)-1),random.randint(0,len(allThreeLetterAdverbs)-1),random.randint(0,len(allThreeLetterAdjectives)-1),random.randint(0,len(threeLetterPrepositions)-1),random.randint(0,len(threeLetterNouns)-1),random.randint(0,len(threeLetterPronouns)-1),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
 def x(a,x,y):
     #print(a[x][y])
     return a[x][y]
-
-Start="The "
+while(0==0):
+    g=[]
 for i in range(0,10):
-    if(is_plural(x(g,i,5))==False):
-        print(Start+x(g,i,5))
+  
+    gd=[]
+    Start="The "
+    for i in range(0,7):
+     if(is_plural(x(g,i,5))==False):
+           gd.append(Start+x(g,i,5))
 
+    for i in range(0,len(gd)):
+     h=get_verb_tense_no_library(gd[i]+" "+x(g,i,0)+" boy.")
+     print(gd[i]+" "+x(g,i,0)+" boy.",h)
+     if(h!=[]):
+        break
+    if(h!=[]):
+        break
+    g.append(iu(random.randint(0,len(largeThreeLetterVerbs)-1),random.randint(0,len(allThreeLetterAdverbs)-1),random.randint(0,len(allThreeLetterAdjectives)-1),random.randint(0,len(threeLetterPrepositions)-1),random.randint(0,len(threeLetterNouns)-1),random.randint(0,len(threeLetterPronouns)-1),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+      
+    
