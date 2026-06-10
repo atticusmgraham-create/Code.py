@@ -835,11 +835,11 @@ def h(other_dict,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdj
     return verb,adverb,adjectives,Prepositions,pronoun,noun
 def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdjectivesd,threeLetterPrepositionsd,threeLetterNounsd,threeLetterPronounsd):
     words=(h(other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdjectivesd,threeLetterPrepositionsd,threeLetterNounsd,threeLetterPronounsd,ad,da,ko,il,er,ur))
-    print(words)
+    #print(words)
     return words
 g=[]
-for i in range(0,3):
-        g.append(iu(i+2,3+i,i+8,5+i,6+i,i,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+for i in range(0,10):
+        g.append(iu(i,i,i,i,i,i,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
 def x(a,x,y):
     print(a[x][y])
     return a[x][y]
