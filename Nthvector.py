@@ -840,7 +840,7 @@ def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverb
 g=[]
 for i in range(0,10):
         import random
-        g.append(iu(random.randint(0,len(largeThreeLetterVerbs)),random.randint(0,len(allThreeLetterAdverbs)),random.randint(0,len(allThreeLetterAdjectives)),random.randint(0,len(threeLetterPrepositions)),random.randint(0,len(threeLetterNouns)),random.randint(0,len(threeLetterPronouns)),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+        g.append(iu(random.randint(0,len(largeThreeLetterVerbs)-1),random.randint(0,len(allThreeLetterAdverbs)-1),random.randint(0,len(allThreeLetterAdjectives)-1),random.randint(0,len(threeLetterPrepositions)-1),random.randint(0,len(threeLetterNouns)-1),random.randint(0,len(threeLetterPronouns)-1),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
 def x(a,x,y):
     #print(a[x][y])
     return a[x][y]
