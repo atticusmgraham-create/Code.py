@@ -839,11 +839,11 @@ def iu(ad,da,ko,il,er,ur,other_dictd,largeThreeLetterVerbsd,allThreeLetterAdverb
     return words
 g=[]
 for i in range(0,10):
-        g.append(iu(i,i,i,i,i,i,other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+        import random
+        g.append(iu(random.randint(0,len(largeThreeLetterVerbs)),random.randint(0,len(allThreeLetterAdverbs)),random.randint(0,len(allThreeLetterAdjectives)),random.randint(0,len(threeLetterPrepositions)),random.randint(0,len(threeLetterNouns)),random.randint(0,len(threeLetterPronouns)),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
 def x(a,x,y):
-    print(a[x][y])
+    #print(a[x][y])
     return a[x][y]
-def fa(n1,n2,re):
-    
-    return re[n1],n2
+
+
 
