@@ -1012,4 +1012,4 @@ while(0==0):
     g.append(result)
       
     
-print(s,klops)
+print(s,nounB)
