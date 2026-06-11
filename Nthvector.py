@@ -918,6 +918,8 @@ def h(other_dict,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdj
     for key, value in other_dict.items():
         if isinstance(value, list) and target_value in value:
             verb=key
+            if verb=='fly' or verb=='eat':
+                verb=''
     
     klopid=o(threeLetterNounsd,other_dict,HU)#3
     if klopid is not None:
@@ -964,13 +966,13 @@ while(0==0):
   
         gd=[]
         
-        Start="The "
+        Start="The"
         for iops in range(0,1):
           if(not is_plural(x(g,5,iops))):
-               gd.append(Start+x(g,5,iops))
+               gd.append(x(g,5,iops))
         #print(len(gd))
         for i in range(0,len(gd)):
-         s=gd[i]+"boy "+x(g,0,i)
+         s=Start+" boy "+x(g,0,i)
          klops=get_verb_tense_no_library(s)
          #print(gd[i]+" "+"boy "+x(g,0,i),klops)
          if klops!=[]:
