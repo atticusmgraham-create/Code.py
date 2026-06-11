@@ -972,7 +972,7 @@ while(0==0):
         for i in range(0,len(gd)):
          s=gd[i]+"boy "+x(g,0,i)
          klops=get_verb_tense_no_library(s)
-         print(gd[i]+" "+"boy "+x(g,0,i),klops)
+         #print(gd[i]+" "+"boy "+x(g,0,i),klops)
          if klops!=[]:
             break
         if klops!=[]:
@@ -1008,4 +1008,4 @@ while(0==0):
     g.append(result)
       
     
-print(klops)
+print(s,klops)
