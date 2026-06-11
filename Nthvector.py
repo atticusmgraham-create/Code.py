@@ -920,7 +920,10 @@ def h(other_dict,largeThreeLetterVerbsd,allThreeLetterAdverbsd,allThreeLetterAdj
             verb=key
     
     klopid=o(threeLetterNounsd,other_dict,HU)#3
-    target_value=klopid[0]
+    if klopid is not None:
+      target_value = klopid[0]
+    else:
+       target_value = ""
     for key, value in other_dict.items():
         if isinstance(value, list) and target_value in value:
             noun=key
@@ -954,24 +957,55 @@ for i in range(0,10):
 def x(a,x,y):
     #print(a[x][y])
     return a[y][x]
+klops=[]
 while(0==0):
-    
+
     for idf in range(0,10):
   
         gd=[]
         
         Start="The "
         for iops in range(0,1):
-          if(is_plural(x(g,5,iops))==False):
+          if(not is_plural(x(g,5,iops))):
                gd.append(Start+x(g,5,iops))
-        print(len(gd))
+        #print(len(gd))
         for i in range(0,len(gd)):
-         h=get_verb_tense_no_library(gd[i]+" "+x(g,0,i)+" boy.")
-         print(gd[i]+" "+x(g,0,i)+" boy.",h)
-         if(h!=[]):
+         s=gd[i]+"boy "+x(g,0,i)
+         klops=get_verb_tense_no_library(s)
+         print(gd[i]+" "+"boy "+x(g,0,i),klops)
+         if klops!=[]:
             break
-        if(h!=[]):
+        if klops!=[]:
             break
-    g.append(iu(random.randint(0,len(largeThreeLetterVerbs)-1),random.randint(0,len(allThreeLetterAdverbs)-1),random.randint(0,len(allThreeLetterAdjectives)-1),random.randint(0,len(threeLetterPrepositions)-1),random.randint(0,len(threeLetterNouns)-1),random.randint(0,len(threeLetterPronouns)-1),other_dict,largeThreeLetterVerbs,allThreeLetterAdverbs,allThreeLetterAdjectives,threeLetterPrepositions,threeLetterNouns,threeLetterPronouns))
+    if klops!=[]:
+        break
+    g=[]
+    idx_verb = random.randint(0, len(largeThreeLetterVerbs) - 1)
+    idx_adv = random.randint(0, len(allThreeLetterAdverbs) - 1)
+    idx_adj = random.randint(0, len(allThreeLetterAdjectives) - 1)
+    idx_prep = random.randint(0, len(threeLetterPrepositions) - 1)
+    idx_noun = random.randint(0, len(threeLetterNouns) - 1)
+    idx_pron = random.randint(0, len(threeLetterPronouns) - 1)
+
+# 2. Call your function with the generated indices and data structures
+    result = iu(
+    idx_verb, 
+    idx_adv, 
+    idx_adj, 
+    idx_prep, 
+    idx_noun, 
+    idx_pron,
+    other_dict,
+    largeThreeLetterVerbs,
+    allThreeLetterAdverbs,
+    allThreeLetterAdjectives,
+    threeLetterPrepositions,
+    threeLetterPronouns,
+    threeLetterNouns
+)
+
+# 3. Append the final result cleanly
+    g.append(result)
       
     
+print(klops)
