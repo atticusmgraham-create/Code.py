@@ -960,6 +960,7 @@ def x(a,x,y):
     #print(a[x][y])
     return a[y][x]
 klops=[]
+nounB=''
 while(0==0):
 
     for idf in range(0,10):
@@ -970,6 +971,7 @@ while(0==0):
         for iops in range(0,1):
           if(not is_plural(x(g,5,iops))):
                gd.append(x(g,5,iops))
+               nounB=x(g,5,iops)
         #print(len(gd))
         for i in range(0,len(gd)):
          s=Start+" boy "+x(g,0,i)
