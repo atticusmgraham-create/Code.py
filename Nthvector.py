@@ -1,6 +1,7 @@
 import string
 import math
 import re
+VOWELS=["a","e","i","o","u"]
 IRREGULAR_PAST = {
     "was", "were", "went", "had", "saw", "ate", "drank", "flew", "came", 
     "brought", "bought", "caught", "thought", "did", "said", "told", "heard", 
@@ -960,18 +961,18 @@ def x(a,x,y):
     #print(a[x][y])
     return a[y][x]
 klops=[]
-nounB=''
-while(0==0):
 
+while(0==0):
+    
     for idf in range(0,10):
   
+    
         gd=[]
-        
         Start="The"
         for iops in range(0,1):
-          if(not is_plural(x(g,5,iops))):
-               gd.append(x(g,5,iops))
-               nounB=x(g,5,iops)
+          if(not is_plural(x(g,4,iops))):
+               gd.append(x(g,4,iops))
+               
         #print(len(gd))
         for i in range(0,len(gd)):
          s=Start+" boy "+x(g,0,i)
@@ -1010,6 +1011,16 @@ while(0==0):
 
 # 3. Append the final result cleanly
     g.append(result)
-      
-    
-print(s,nounB)
+nounB=list(gd[0])    
+xcf=0
+for i in range(0,len(VOWELS)):
+    if (nounB[0]==VOWELS[i]):
+        sen=s+" an "+gd[0]+"."
+        print(sen)
+        break
+    else:
+        xcf+=1
+if(len(VOWELS)==xcf):
+        sen=s+" a "+gd[0]+"."
+        print(sen)    
+        
