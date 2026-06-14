@@ -2,6 +2,7 @@ n=[]
 oi=0
 k=0
 oo=3
+ball = 0.02
 for c in range(0,oo):   
    for ide in range(0,1):
         import numpy as np
@@ -10,8 +11,8 @@ for c in range(0,oo):
         
         ME = []
         ts = []
-        ball = 9
-        r = 0.1
+        
+        r = 0.01
         
         def u(x, m): return x**2 * m * 0.5
         def PE(K, L): return math.sqrt(K * L * 9.81)
@@ -44,7 +45,7 @@ for c in range(0,oo):
             ts.append(total_elapsed_time)
         
         # --- PURE MATH LOW-PASS FILTER (NO EXTRA LIBRARIES) ---
-        def low_pass_filter(data_list, alpha=0.01):
+        def low_pass_filter(data_list, alpha=0.0001):
             """
             Applies a forward-backward exponential moving average filter.
             alpha: Controls smoothing strength. Lower = smoother. Higher = less lag.
@@ -64,14 +65,14 @@ for c in range(0,oo):
         
         # Set smoothing factor (0.1 = heavy filtering, 0.3 = light filtering)
         smoothing_factor = 0.0001
-        
+        smoothing_factord=1
         # Clean both datasets using the native low-pass function
         ts_pass1 = low_pass_filter(ts, alpha=smoothing_factor)
-        ME_pass1 = low_pass_filter(ME, alpha=smoothing_factor)
+        ME_pass1 = low_pass_filter(ME, alpha=smoothing_factord)
     
     # Second filtering pass (smooths out remaining low-frequency waves)
         ts_clean1 = low_pass_filter(ts_pass1, alpha=smoothing_factor)
-        ME_clean1 = low_pass_filter(ME_pass1, alpha=smoothing_factor)
+        ME_clean1 = low_pass_filter(ME_pass1, alpha=smoothing_factord)
     
     
         # Compute gradients on the cleanly smoothed data
