@@ -1,8 +1,9 @@
 n=[]
 oi=0
 k=0
-for c in range(0,5):   
-   for ide in range(0,100):
+oo=3
+for c in range(0,oo):   
+   for ide in range(0,1):
         import numpy as np
         import math
         import time
@@ -18,14 +19,14 @@ for c in range(0,5):
         
         total_elapsed_time = 0.0
         
-        for timestep in range(0, 100):  
+        for timestep in range(0, 3):  
             MEnergy = []
             Ts = []
             
             for i in range(1, 15):
                 start_time = time.perf_counter()
                 
-                for _ in range(100):
+                for _ in range(3):
                     math.sin(i / r)
                     
                 end_time = time.perf_counter()
@@ -62,7 +63,7 @@ for c in range(0,5):
             return np.array(backward)
         
         # Set smoothing factor (0.1 = heavy filtering, 0.3 = light filtering)
-        smoothing_factor = r
+        smoothing_factor = 0.0001
         
         # Clean both datasets using the native low-pass function
         ts_pass1 = low_pass_filter(ts, alpha=smoothing_factor)
@@ -75,9 +76,9 @@ for c in range(0,5):
     
         # Compute gradients on the cleanly smoothed data
         MEA = np.gradient(ME_clean1, ts_clean1)
-        print(sum(MEA)/len(MEA))
-        oi=len(MEA)
-        n.append(sum(MEA)/len(MEA))
-        k+=(sum(MEA)/len(MEA))
         
-print("avg:",k)
+        oi=len(MEA)*oo
+        n.append(sum(MEA))
+        k+=(sum(MEA)/len(MEA))
+       
+print("avg mechaincal energy:",sum(n)/oi,"joules")
