@@ -2,7 +2,7 @@ n=[]
 oi=0
 k=0
 oo=3
-ball = 0.02
+ball = 2.17645e-8
 for c in range(0,oo):   
    for ide in range(0,1):
         import numpy as np
