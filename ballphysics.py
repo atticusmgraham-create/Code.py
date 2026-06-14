@@ -45,7 +45,7 @@ for c in range(0,oo):
             ts.append(total_elapsed_time)
         
         # --- PURE MATH LOW-PASS FILTER (NO EXTRA LIBRARIES) ---
-        def low_pass_filter(data_list, alpha=0.0001):
+        def low_pass_filter(data_list, alpha=0.1):
             """
             Applies a forward-backward exponential moving average filter.
             alpha: Controls smoothing strength. Lower = smoother. Higher = less lag.
@@ -64,8 +64,8 @@ for c in range(0,oo):
             return np.array(backward)
         
         # Set smoothing factor (0.1 = heavy filtering, 0.3 = light filtering)
-        smoothing_factor = 0.0001
-        smoothing_factord=1.0
+        smoothing_factor = 0.1
+        smoothing_factord=0.3
         # Clean both datasets using the native low-pass function
         ts_pass1 = low_pass_filter(ts, alpha=smoothing_factor)
         ME_pass1 = low_pass_filter(ME, alpha=smoothing_factord)
