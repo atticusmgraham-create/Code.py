@@ -4,7 +4,7 @@ k=0
 oo=3
 ball = 2.17645e-8
 for c in range(0,oo):   
-   for ide in range(0,2):
+   for ide in range(0,1):
         import numpy as np
         import math
         import time
@@ -65,7 +65,7 @@ for c in range(0,oo):
         
         # Set smoothing factor (0.1 = heavy filtering, 0.3 = light filtering)
         smoothing_factor = 0.0001
-        smoothing_factord=1
+        smoothing_factord=1.0
         # Clean both datasets using the native low-pass function
         ts_pass1 = low_pass_filter(ts, alpha=smoothing_factor)
         ME_pass1 = low_pass_filter(ME, alpha=smoothing_factord)
