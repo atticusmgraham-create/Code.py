@@ -4,7 +4,7 @@ k=0
 oo=3
 ball = 2.17645e-8
 for c in range(0,oo):   
-   for ide in range(0,1):
+   for ide in range(0,2):
         import numpy as np
         import math
         import time
@@ -81,5 +81,6 @@ for c in range(0,oo):
         oi=len(MEA)*oo
         n.append(sum(MEA))
         k+=(sum(MEA)/len(MEA))
-       
-print("avg mechaincal energy:",sum(n)/oi,"joules")
+Me=sum(n)/oi
+
+print("avg mechaincal energy:",f"{Me:.2g}","joules")
