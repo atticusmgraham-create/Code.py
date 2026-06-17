@@ -98,15 +98,16 @@ def analyze_prime_error_rates(x):
     rel_error_li = (abs_error_li / pi_x) * 100 if pi_x > 0 else Decimal(0)
     rel_error_pnt = (abs_error_pnt / pi_x) * 100 if pi_x > 0 else Decimal(0)
     
-    print(f"Analysis up to x = {x}:")
-    print(f"  Approx Primes pi(x)     : {pi_x:.4f}")
-    print(f"  Log Integral Li(x)      : {li_x:.4f}")
-    print(f"  PNT Estimate x/ln(x)    : {pnt_x:.4f}")
-    print("-" * 55)
-    print(f"  Li(x) Absolute Error    : {abs_error_li:.4f}")
-    print(f"  Li(x) Relative Error    : {rel_error_li:.6f}%")
-    print(f"  PNT Absolute Error      : {abs_error_pnt:.4f}")
-    print(f"  PNT Relative Error      : {rel_error_pnt:.6f}%")
+    #print(f"Analysis up to x = {x}:")
+    #print(f"  Approx Primes pi(x)     : {pi_x:.4f}")
+    #print(f"  Log Integral Li(x)      : {li_x:.4f}")
+    #print(f"  PNT Estimate x/ln(x)    : {pnt_x:.4f}")
+    #print("-" * 55)
+    #print(f"  Li(x) Absolute Error    : {abs_error_li:.4f}")
+    #print(f"  Li(x) Relative Error    : {rel_error_li:.6f}%")
+    #print(f"  PNT Absolute Error      : {abs_error_pnt:.4f}")
+    #print(f"  PNT Relative Error      : {rel_error_pnt:.6f}%")
+    return {pi_x}
 
 def check_riemann_error_bound(x):
     """Verifies that the absolute error stays below the Riemann Hypothesis ceiling using Decimal."""
@@ -121,11 +122,27 @@ def check_riemann_error_bound(x):
     
     max_bound = (Decimal(1) / (Decimal(8) * pi_constant)) * (x_dec.sqrt()) * ln_x
     
-    print("\n--- Riemann Boundary Test ---")
-    print(f"Actual Absolute Error: {abs_error:.4f}")
-    print(f"Riemann Allowed Limit: {max_bound:.4f}")
-    print(f"Boundary Valid?      : {abs_error <= max_bound}")
-
+    #print("\n--- Riemann Boundary Test ---")
+    #print(f"Actual Absolute Error: {abs_error:.4f}")
+    #print(f"Riemann Allowed Limit: {max_bound:.4f}")
+    #print(f"Boundary Valid?      : {abs_error <= max_bound}")
+def numerical_limit(func, target, tolerance=1e-9):
+    """
+    Approximates the limit of 'func' as x approaches 'target'.
+    """
+    # 1. Approach from the left (slightly smaller value)
+    left_x = target - tolerance
+    left_y = func(left_x)
+    
+    # 2. Approach from the right (slightly larger value)
+    right_x = target + tolerance
+    right_y = func(right_x)
+    
+    # 3. Average the two results for a stable middle ground
+    return (left_y + right_y) / 2
 # Test with a limit of 10**100 safely!
+result = numerical_limit(analyze_prime_error_rates, target=10**100)
+print(result)
 analyze_prime_error_rates(10**1000)
 check_riemann_error_bound(10**1000)
+
