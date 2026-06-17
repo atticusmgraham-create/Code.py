@@ -77,7 +77,7 @@ def check_riemann_zero_count(t):
     return calculated_index
 
 # We define a localized sequence of consecutive target indices at 10^500 scale
-base_exponent = 10**100
+base_exponent = 10**900
 target_indices = [base_exponent + i for i in range(50)]
 
 for idx in target_indices:
