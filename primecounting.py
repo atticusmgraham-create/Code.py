@@ -1,7 +1,8 @@
 import math
 import numpy as np
 g=[]
-def riemann_siegel_z(t, terms=300):
+c=[]
+def riemann_siegel_z(t, terms=800):
     """Computes the real-valued Z(t) function."""
     eta_real, eta_imag = 0.0, 0.0
     for n in range(1, terms + 1):
@@ -45,7 +46,7 @@ def find_i_coefficient(low, high, tolerance=1e-5):
 # Scan the imaginary axis from t=10 to t=80 to catch all 20 values
 step_size = 0.25
 current_t = 10.0
-max_t = 8000.0
+max_t = 800.0
 found_count = 0
 
 #print(f"Scanning t-axis from {current_t} to {max_t} for crossings...")
@@ -62,10 +63,28 @@ while current_t < max_t:
         exact_t = find_i_coefficient(current_t, next_t)
         #print(f"t_{found_count:<2} isolated at: {exact_t}")
         g.append(exact_t)
+        c.append(found_count)
     current_t = next_t
     prev_z = next_z
 
 #print("=" * 45)
-print(g)
-for i in range(0,len(g)-1):
-    print(g[i+1]-g[i])
+
+g=np.array(g)
+c=np.array(c)
+n = len(c)
+
+# 2. Calculate the required mathematical sums
+sum_x = sum(c)
+sum_y = sum(g)
+sum_xy = sum(xi * yi for xi, yi in zip(X, y))
+sum_x_squared = sum(xi**2 for xi in X)
+slope = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x**2)
+intercept = (sum_y - slope * sum_x) / n
+
+print(f"Slope: {slope}")          # Output: 1.40
+print(f"Intercept: {intercept}")  # Output: 0.50
+
+# 4. Predict a new value (y = mx + b)
+new_x = 5
+prediction = (slope * new_x) + intercept
+print(f"Prediction for x=5: {prediction}")  # Output: 7.50
