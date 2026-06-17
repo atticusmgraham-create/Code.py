@@ -1,5 +1,6 @@
 import math
-
+import numpy as np
+g=[]
 def riemann_siegel_z(t, terms=300):
     """Computes the real-valued Z(t) function."""
     eta_real, eta_imag = 0.0, 0.0
@@ -44,11 +45,11 @@ def find_i_coefficient(low, high, tolerance=1e-5):
 # Scan the imaginary axis from t=10 to t=80 to catch all 20 values
 step_size = 0.25
 current_t = 10.0
-max_t = 80.0
+max_t = 8000.0
 found_count = 0
 
-print(f"Scanning t-axis from {current_t} to {max_t} for crossings...")
-print("=" * 45)
+#print(f"Scanning t-axis from {current_t} to {max_t} for crossings...")
+#print("=" * 45)
 
 prev_z = riemann_siegel_z(current_t)
 while current_t < max_t:
@@ -59,9 +60,12 @@ while current_t < max_t:
     if prev_z * next_z < 0:
         found_count += 1
         exact_t = find_i_coefficient(current_t, next_t)
-        print(f"t_{found_count:<2} isolated at: {exact_t:.5f}")
-        
+        #print(f"t_{found_count:<2} isolated at: {exact_t}")
+        g.append(exact_t)
     current_t = next_t
     prev_z = next_z
 
-print("=" * 45)
+#print("=" * 45)
+print(g)
+for i in range(0,len(g)-1):
+    print(g[i+1]-g[i])
