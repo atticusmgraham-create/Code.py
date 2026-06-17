@@ -84,11 +84,11 @@ g_train = [true_riemann_trend(idx) + (math.sin(idx) * 0.1) for idx in c_train]
 slope, intercept = train_pure_python_model(c_train, g_train)
 
 # Define target indices WAY far out into the future (e.g., 500th to 504th zeros)
-future_targets = [500, 501, 502, 503, 504]
+future_targets = [(10)+1, (10**50)+2, (10**50)+3, (10**50)+4, (10**50)+5]
 
 # Run predictions
 predictions = predict_pure_python(future_targets, slope, intercept)
 
 print("--- Pure Python Long-Range Predictions ---")
 for idx, pred in zip(future_targets, predictions):
-    print(f"Predicted distant zero t_{idx}: {pred:.4f}")
+    print(f"Predicted distant zero: {pred:.4f}")
