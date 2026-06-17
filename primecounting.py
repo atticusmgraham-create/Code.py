@@ -71,20 +71,14 @@ while current_t < max_t:
 
 g=np.array(g)
 c=np.array(c)
-n = len(c)
-
-# 2. Calculate the required mathematical sums
-sum_x = sum(c)
-sum_y = sum(g)
-sum_xy = sum(xi * yi for xi, yi in zip(c, g))
-sum_x_squared = sum(xi**2 for xi in g)
-slope = (n * sum_xy - sum_x * sum_y) / (n * sum_x_squared - sum_x**2)
-intercept = (sum_y - slope * sum_x) / n
-
-print(f"Slope: {slope}")          # Output: 1.40
-print(f"Intercept: {intercept}")  # Output: 0.50
-
-# 4. Predict a new value (y = mx + b)
-new_x = 5
-prediction = (slope * new_x) + intercept
-print(f"Prediction for x=5: {prediction}")  # Output: 7.50
+print(c[len(c)-1])
+# 2. Fit a 1st-degree polynomial
+cofA= np.polyfit(g, c, 2)
+cofB= np.polyfit(g, c, 1)
+cofC=np.polyfit(g, c, 3)
+cofD=np.polyfit(g, c, 4)
+# 3. Print the results
+a, b, cd=cofA
+m, B=cofB
+Ac, Bc, Cc, Dc=cofC
+Ad, Bd, Cd, Dd, Ed=cofD
