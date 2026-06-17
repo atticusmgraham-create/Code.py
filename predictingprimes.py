@@ -1,48 +1,102 @@
-import numpy as np
-import math
-zeta_zeros = [
-    0.5 + 14.134725141734694j, 0.5 + 21.022039638771555j, 0.5 + 25.010857580145688j,
-    0.5 + 30.424876125859513j, 0.5 + 32.93506158773919j,  0.5 + 37.58617815882567j,
-    0.5 + 40.91871901214749j,  0.5 + 43.327073280915j,    0.5 + 48.00515088116716j,
-    0.5 + 49.7738324776723j,   0.5 + 52.97032147771446j,  0.5 + 56.44624769706339j,
-    0.5 + 59.34704400260235j,  0.5 + 60.83177852460981j,  0.5 + 65.1125440480816j,
-    0.5 + 67.07981086521717j,  0.5 + 69.54640171117398j,  0.5 + 72.06715767448191j,
-    0.5 + 75.70469069908393j,  0.5 + 77.14484006887413j,  0.5 + 79.33737502024176j,
-    0.5 + 82.91038085408603j,  0.5 + 84.73549445340578j,  0.5 + 87.42527461380824j,
-    0.5 + 88.80911120763332j,  0.5 + 92.49189927055848j,  0.5 + 94.6513440405199j,
-    0.5 + 95.8706342282463j,   0.5 + 98.8311942181837j,   0.5 + 101.3178510038234j,
-    0.5 + 103.7255380404783j,  0.5 + 105.4466230523261j,  0.5 + 107.1686111840897j,
-    0.5 + 111.0295355431697j,  0.5 + 111.8746591771083j,  0.5 + 114.320220915447j,
-    0.5 + 116.2266803208575j,  0.5 + 118.7907286664j,     0.5 + 121.370125002421j,
-    0.5 + 122.9468292935526j,  0.5 + 124.2568181674558j,  0.5 + 127.5166838795968j,
-    0.5 + 129.5787042000265j,  0.5 + 131.0876885317754j,  0.5 + 133.4977373663046j,
-    0.5 + 134.7565097533791j,  0.5 + 138.1160613211691j,  0.5 + 139.7362089521222j,
-    0.5 + 141.11979j,          0.5 + 143.1118458076206j,  0.5 + 146.0009824867555j,
-    0.5 + 147.4227653451108j,  0.5 + 150.0535204211634j,  0.5 + 150.9252576122394j,
-    0.5 + 153.02469381119j,    0.5 + 156.1129092949028j,  0.5 + 157.5975918182285j,
-    0.5 + 158.84998817142j,    0.5 + 161.1229565551327j,  0.5 + 163.0307162444342j,
-    0.5 + 165.9746685794827j,  0.5 + 167.1844399781845j,  0.5 + 169.3069116641551j,
-    0.5 + 171.4333331464619j,  0.5 + 172.6710444391361j,  0.5 + 174.7541915234254j,
-    0.5 + 176.4410292728956j,  0.5 + 178.3771748366474j,  0.5 + 179.9164223298156j,
-    0.5 + 182.2073995393529j,  0.5 + 184.8744547463567j,  0.5 + 185.16335198038j,
-    0.5 + 187.445209794301j,   0.5 + 189.4161586561132j,  0.5 + 192.1165576778943j,
-    0.5 + 193.0797266184206j,  0.5 + 195.2653966810261j,  0.5 + 196.876481615021j,
-    0.5 + 198.0153096350352j,  0.5 + 201.2647519437199j,  0.5 + 202.4935945142123j,
-    0.5 + 204.1896718041539j,  0.5 + 205.39469720235j,    0.5 + 207.9062388836567j,
-    0.5 + 209.996053351052j,   0.5 + 211.6908625902148j,  0.5 + 213.3479193188555j,
-    0.5 + 214.5470446049281j,  0.5 + 216.1695383569727j,  0.5 + 219.0675123136894j,
-    0.5 + 220.7149181163456j,  0.5 + 221.4307055551528j,  0.5 + 224.0070002549282j,
-    0.5 + 224.9833246698656j,  0.5 + 227.4214442802089j,  0.5 + 229.337413306101j,
-    0.5 + 231.2501887010468j,  0.5 + 233.155462529061j,   0.5 + 235.4714652033064j,
-    0.5 + 236.43236965416j
-]
-x=[]
-l=0
-k=0
-for i in range(0,len(zeta_zeros)):
-    x.append(zeta_zeros[i].imag)
+def exact_prime_count(x):
+    """Returns pi(x): the exact number of primes up to x."""
+    if x < 2:
+        return 0
     
-    l=(zeta_zeros[i].imag/(2*math.pi))*math.log((zeta_zeros[i].imag/(2*math.pi)),math.e)-(zeta_zeros[i].imag/(2*math.pi))+(7/8)
-    print(l)
+    # Boolean array representing primality
+    sieve = [True] * (x + 1)
+    sieve[0] = sieve[1] = False
     
+    for i in range(2, int(x**0.5) + 1):
+        if sieve[i]:
+            for j in range(i * i, x + 1, i):
+                sieve[j] = False
+                
+    return sum(1 for prime in sieve if prime)
+def math_ln(x):
+    """Pure Python natural logarithm approximation using Taylor/Halley method."""
+    if x <= 0: raise ValueError("Math domain error")
+    # Using a simple iterative approximation for ln(x)
+    guess = 0.0
+    for _ in range(100):
+        # Local fast exp(guess)
+        e_g = 1.0
+        term = 1.0
+        for i in range(1, 20):
+            term *= (guess / i)
+            e_g += term
+        num = 2 * (x - e_g)
+        den = x + e_g
+        delta = num / den
+        guess += delta
+        if abs(delta) < 1e-12: break
+    return guess
+
+def logarithmic_integral(x, intervals=100):
+    """Computes Li(x) using numerical integration (Trapezoidal Rule)."""
+    if x < 2:
+        return 0.0
+    
+    # We integrate from 2 to x to avoid the singularity at t=1
+    a = 2.0
+    b = float(x)
+    h = (b - a) / intervals
+    
+    # Initial endpoints evaluation
+    integral_sum = 0.5 * (1.0 / math_ln(a) + 1.0 / math_ln(b))
+    
+    # Sum up inner panels
+    for i in range(1, intervals):
+        t = a + i * h
+        integral_sum += 1.0 / math_ln(t)
+        
+    return integral_sum * h
+
+def analyze_prime_error_rates(x):
+    """Calculates absolute and relative error rates for prime approximations."""
+    pi_x = exact_prime_count(x)
+    li_x = logarithmic_integral(x)
+    pnt_x = x / math_ln(x) if x > 1 else 0
+    
+    # Absolute Errors
+    abs_error_li = pi_x - li_x
+    abs_error_pnt = pi_x - pnt_x
+    
+    # Relative Errors (Percentage)
+    rel_error_li = (abs_error_li / pi_x) * 100 if pi_x > 0 else 0
+    rel_error_pnt = (abs_error_pnt / pi_x) * 100 if pi_x > 0 else 0
+    
+    print(f"Analysis up to x = {x}:")
+    print(f"  Exact Primes pi(x)      : {pi_x}")
+    print(f"  Log Integral Li(x)      : {li_x:.2f}")
+    print(f"  PNT Estimate x/ln(x)    : {pnt_x:.2f}")
+    print("-" * 45)
+    print(f"  Li(x) Absolute Error    : {abs_error_li:.2f}")
+    print(f"  Li(x) Relative Error    : {rel_error_li:.4f}%")
+    print(f"  PNT Absolute Error      : {abs_error_pnt:.2f}")
+    print(f"  PNT Relative Error      : {rel_error_pnt:.4f}%")
+
+# Test with a limit of 100,000
+analyze_prime_error_rates(100)
+def check_riemann_error_bound(x):
+    """Verifies that the absolute error stays below the Riemann Hypothesis ceiling."""
+    pi_x = exact_prime_count(x)
+    li_x = logarithmic_integral(x)
+    abs_error = abs(pi_x - li_x)
+    
+    # Compute the theoretical maximal error bound
+    ln_x = math_ln(x)
+    max_bound = (1.0 / (8 * 3.1415926535)) * (x**0.5) * ln_x
+    
+    print(f"Actual Absolute Error: {abs_error:.4f}")
+    print(f"Riemann Allowed Limit: {max_bound:.4f}")
+    print(f"Boundary Valid?      : {abs_error <= max_bound}")
+
+check_riemann_error_bound(100)
+
+
+
+
+
+
     
