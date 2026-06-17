@@ -1,49 +1,32 @@
 from decimal import Decimal, getcontext
 
 # Step 1: Set precision to 1000 places to safely calculate deep coordinates
-getcontext().prec = 10000000000
+getcontext().prec = 1000
 
-def bbp_pi_position(n):
+def calculate_pi_decimal():
     """
-    Finds the hexadecimal digits of Pi starting at position n 
-    using the Bailey-Borwein-Plouffe spigot algorithm.
+    Calculates Pi to the current Decimal precision using the 
+    Gauss-Legendre algorithm.
     """
-    def s(j, n):
-        # Calculates the fractional part of the series sum
-        s_sum = 0.0
-        # Left side of the summation (k from 0 to n)
-        for k in range(n + 1):
-            denominator = 8 * k + j
-            # Modular exponentiation: (16^(n-k)) % denominator
-            s_sum += pow(16, n - k, denominator) / denominator
-            
-        # Right side of the summation (k from n+1 onwards to convergence)
-        k = n + 1
-        while True:
-            term = 1 / (pow(16, k - n) * (8 * k + j))
-            if term < 1e-15:
-                break
-            s_sum += term
-            k += 1
-        return s_sum
-
-    # BBP Core linear combination formula
-    frac = (4 * s(1, n) - 2 * s(4, n) - s(5, n) - s(6, n)) % 1.0
+    getcontext().prec += 2  # Guard digits
+    a = Decimal(1)
+    b = 1 / Decimal(2).sqrt()
+    t = Decimal(1) / Decimal(4)
+    p = Decimal(1)
     
-    # Extract the first 4 hexadecimal digits
-    hex_digits = ""
-    for _ in range(4):
-        frac *= 16
-        digit = int(frac)
-        hex_digits += hex(digit)[2:]
-        frac -= digit
+    for _ in range(10):  # 10 iterations give >1000 digits of precision
+        an = (a + b) / 2
+        bn = (a * b).sqrt()
+        tn = t - p * (a - an)**2
+        pn = 2 * p
+        a, b, t, p = an, bn, tn, pn
         
-    return hex_digits
+    getcontext().prec -= 2  # Restore precision
+    return (a + b)**2 / (4 * t)
 
-# Querying position 10,000,000,000
-hex_block = bbp_pi_position(10**10)
-PI=hex_block
-
+# Define mathematically correct high-precision constants
+PI = calculate_pi_decimal()
+E = Decimal('2.718281828459045235360287471352662497757247093699959574966967627724076630353547594571382178525166427427466391932003059921817413596629043572900334295260595630738132328627943490763233829880753195251019011573834187930702154089149934884167509244761460668')
 
 def calculate_gram_point(n_int):
     """
@@ -69,30 +52,9 @@ def calculate_gram_point(n_int):
         y = y_next
         
     # Translate structural y scale back to Riemann t-coordinate axis
+    # FIXED: PI is now a numerical Decimal object, not a hex string
     gram_point_t = Decimal('2') * PI * y
     return gram_point_t
-
-# ==========================================
-# 📊 SHOWING THE LOCAL GRID FIELD
-# ==========================================
-# We define a localized sequence of consecutive target indices at 10^500 scale
-target_indices = [10**1000, (10**1000)+1, (10**1000)+2, (10**1000)+3]
-
-
-#print("--- 1000-Digit High-Precision Gram Intervals ---")
-gram_points = []
-for idx in target_indices:
-    g_t = calculate_gram_point(idx)
-    gram_points.append(g_t)
-    #print(f"\nGram Point g_{idx}:\n{g_t}\n")
-
-#print("--- Exact Micro-Spacing Separation ---")
-for i in range(len(gram_points) - 1):
-    diff = gram_points[i+1] - gram_points[i]
-    #print(f"Interval gap between Zero {target_indices[i]} and Zero {target_indices[i+1]}: {diff}")
-# ==========================================
-# 🔍 VERIFICATION ENGINE (CHECKING THE ZEROS)
-# ==========================================
 
 def check_riemann_zero_count(t):
     """
@@ -102,7 +64,7 @@ def check_riemann_zero_count(t):
     """
     # The leading terms of Riemann-Siegel theta function phase
     # theta(t) = (t/2)*ln(t/(2*pi*e)) - pi/8 + 1/(48*t) + ...
-    two_pi_e = Decimal('2') * PI * Decimal('2.7182818284590452353602874713526624977572470936999595749669676277')
+    two_pi_e = Decimal('2') * PI * E
     
     term1 = (t / Decimal('2')) * (t / two_pi_e).ln()
     term2 = PI / Decimal('8')
@@ -114,25 +76,14 @@ def check_riemann_zero_count(t):
     calculated_index = (theta_t / PI) + Decimal('1')
     return calculated_index
 
-#print("\n--- Running Verification Engine ---")
-for idx in target_indices:
-    # 1. Calculate the zero coordinate using your solver
-    t_coord = calculate_gram_point(idx)
-    
-    # 2. Check it by working backwards through the counting formula N(t)
-    verified_idx = check_riemann_zero_count(t_coord)
-    
-    # 3. Calculate the absolute calculation drift error
-    drift_error = abs(Decimal(idx) - verified_idx)
-    
-    #print(f"\nChecking Zero #{idx}:")
-    #print(f"  > Target Integer: {idx}")
-    #print(f"  > Computed N(t) : {verified_idx}") # Showing first 50 decimals of result
-    #print(f"  > Numerical Drift: {drift_error}")
+# We define a localized sequence of consecutive target indices at 10^500 scale
+base_exponent = 10**100
+target_indices = [base_exponent + i for i in range(50)]
+
 for idx in target_indices:
     # Calculate and verify the zero coordinate through the high-precision grid
     t_coord = calculate_gram_point(idx)
     _ = check_riemann_zero_count(t_coord)  # Verifies integrity in the workspace background
     
     # Print out nothing but the pure numerical coordinate string
-    print("zeros: ",t_coord)
+    print("zeros: ", t_coord)
