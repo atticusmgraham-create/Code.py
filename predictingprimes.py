@@ -2,7 +2,7 @@ import math
 from decimal import Decimal, getcontext
 
 # Set high precision context for large scales or deep decimal points
-getcontext().prec = 5000
+getcontext().prec = 10000
 
 def approx_prime_count(x):
     """
@@ -94,8 +94,8 @@ def numerical_limit(func, target, tolerance):
 # --- Execution ---
 
 # FIXED: Cast target and step tolerance to Decimal objects 
-target_val = Decimal('10')**5004
-tolerance_val = Decimal('10')**5003  # Proportional scale adjustment
+target_val = Decimal('10')**9994
+tolerance_val = Decimal('10')**9993  # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
 print("Numerical Limit Result:")
