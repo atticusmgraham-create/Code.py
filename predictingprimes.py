@@ -100,7 +100,9 @@ target_val = Decimal('10')**10004
 tolerance_val = Decimal('10')**-10004 # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
-
+res_high_prec = Decimal('10004') * decimal_ln(Decimal('10'))
+print("Numerical estimated of x:")
+print(result[0]*res_high_prec)
 print("Numerical Limit Result:")
 print(result[0])
 #print("lower limit: ")
