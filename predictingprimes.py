@@ -84,23 +84,29 @@ def check_riemann_error_bound(x):
 def numerical_limit(func, target, tolerance):
     """Approximates the limit of 'func' as x approaches 'target' using Decimal precision."""
     left_x = target - tolerance
+    
     left_y = func(left_x)
     
     right_x = target + tolerance
+  
     right_y = func(right_x)
     
-    return (left_y + right_y) / 2
+    return (left_y + right_y) / 2,left_y,right_y
 
 # --- Execution ---
 
 # FIXED: Cast target and step tolerance to Decimal objects 
 target_val = Decimal('10')**9994
-tolerance_val = Decimal('10')**9993  # Proportional scale adjustment
+tolerance_val = Decimal('10')**-9994  # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
-print("Numerical Limit Result:")
-print(result)
 
+print("Numerical Limit Result:")
+print(result[0])
+print("lower limit: ")
+print(result[1])
+print("higher limit: ")
+print(result[2])
 # Running your original tests below
 print("\nRunning higher tests...")
 analyze_prime_error_rates(Decimal('10')**1000)
