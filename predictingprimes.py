@@ -91,7 +91,7 @@ def numerical_limit(func, target, tolerance):
   
     right_y = func(right_x)
     
-    return (left_y + right_y) / 2,left_y,right_y
+    return (left_y + right_y) / 2,(right_x+left_x)/2
 
 # --- Execution ---
 
@@ -100,11 +100,21 @@ target_val = Decimal('10')**10004
 tolerance_val = Decimal('10')**-10004 # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
-res_high_prec = Decimal('10004') * decimal_ln(Decimal('10'))
-print("Numerical estimated of x:")
-print(result[0]*res_high_prec)
-print("Numerical Limit Result:")
+
+print("Numerical Limit Result of composites:")
+print(result[1]-result[0])
+print("Numerical Limit Result of primes:")
 print(result[0])
+print("Statistics of a prime:")
+print((result[0]/result[1]))
+print("Statistics of a composite:")
+print(((result[1]-result[0])/result[1]))
+y=float(Decimal(((result[1]-result[0])/result[1])))
+i=float(Decimal((result[0]/result[1])))
+print("Statistics of a prime in percent:")
+print(i*100)
+print("Statistics of a composite in percent:")
+print(y*100)
 #print("lower limit: ")
 #print(result[1])
 #print("higher limit: ")
