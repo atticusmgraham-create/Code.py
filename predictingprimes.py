@@ -96,8 +96,8 @@ def numerical_limit(func, target, tolerance):
 # --- Execution ---
 
 # FIXED: Cast target and step tolerance to Decimal objects 
-target_val = Decimal('10')**10000
-tolerance_val = Decimal('10')**-10000 # Proportional scale adjustment
+target_val = Decimal('10')**10004
+tolerance_val = Decimal('10')**-10004 # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
 
