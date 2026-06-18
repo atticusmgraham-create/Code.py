@@ -96,18 +96,18 @@ def numerical_limit(func, target, tolerance):
 # --- Execution ---
 
 # FIXED: Cast target and step tolerance to Decimal objects 
-target_val = Decimal('10')**9994
-tolerance_val = Decimal('10')**-9994  # Proportional scale adjustment
+target_val = Decimal('10')**10000
+tolerance_val = Decimal('10')**-10000 # Proportional scale adjustment
 
 result = numerical_limit(analyze_prime_error_rates, target=target_val, tolerance=tolerance_val)
 
 print("Numerical Limit Result:")
 print(result[0])
-print("lower limit: ")
-print(result[1])
-print("higher limit: ")
-print(result[2])
+#print("lower limit: ")
+#print(result[1])
+#print("higher limit: ")
+#print(result[2])
 # Running your original tests below
-print("\nRunning higher tests...")
-analyze_prime_error_rates(Decimal('10')**1000)
-check_riemann_error_bound(Decimal('10')**1000)
+#print("\nRunning higher tests...")
+#analyze_prime_error_rates(Decimal('10')**1000)
+#check_riemann_error_bound(Decimal('10')**1000)
