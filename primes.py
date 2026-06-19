@@ -1,5 +1,5 @@
 import math
-
+from decimal import Decimal
 def pure_riemann_r(x, max_terms=60):
     
     """Calculates Riemann's R(x) using Gram's series from scratch."""
@@ -29,8 +29,9 @@ def pure_riemann_r(x, max_terms=60):
         total += term
         
     return total
-
+u=10**72851
 # --- Test Output ---
 # Actual primes under 1000 is 168
-g=(pure_riemann_r(10**72851))
-print(g)
+g=Decimal((pure_riemann_r(u)))
+print(g,"primes out of {10**72851} numbers")
+
