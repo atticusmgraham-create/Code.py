@@ -1,6 +1,7 @@
 import math
 
 def pure_riemann_r(x, max_terms=60):
+    
     """Calculates Riemann's R(x) using Gram's series from scratch."""
     if x < 2:
         return 0.0
@@ -31,4 +32,5 @@ def pure_riemann_r(x, max_terms=60):
 
 # --- Test Output ---
 # Actual primes under 1000 is 168
-print(f"Riemann R(1,000): {round(pure_riemann_r(1000))}")  # Outputs: 168
+g=(pure_riemann_r(10**72851))
+print(g)
