@@ -1,62 +1,97 @@
-import pyaudio
+import os
+import sys
 import numpy as np
-import matplotlib.pyplot as plt
 
-# Audio stream configuration
+# 1. Silence messy ALSA warning logs in the terminal
+os.environ['ALSA_LOG_LEVEL'] = 'none'
+sys.stderr = open(os.devnull, 'w')
+import pyaudio
+import matplotlib.pyplot as plt
+sys.stderr = sys.__stderr__  # Restore standard error stream
+
+# 2. Audio configuration defaults
 FORMAT = pyaudio.paInt16
-CHANNELS = 1
 RATE = 44100
 CHUNK = 1024
-DEVICE_INDEX = 0  # CHANGE THIS to your monitor's index number
 
 p = pyaudio.PyAudio()
 
-# Open connection to the monitor's microphone
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=RATE,
-                input=True,
-                input_device_index=DEVICE_INDEX,
-                frames_per_buffer=CHUNK)
+# 3. Safely auto-detect the best input device and its hardware channels
+try:
+    device_info = p.get_default_input_device_info()
+    DEVICE_INDEX = device_info['index']
+    CHANNELS = 1 if device_info['maxInputChannels'] >= 1 else int(device_info['maxInputChannels'])
+    print(f"Connected to: {device_info['name']}")
+    print(f"Configured Channels: {CHANNELS} | Sample Rate: {RATE}")
+except IOError:
+    print("Error: No working audio input devices found. Please check your mic connection.")
+    p.terminate()
+    sys.exit(1)
 
-# Setup the matplotlib live graph
+# 4. Initialize hardware audio stream
+stream = p.open(
+    format=FORMAT,
+    channels=CHANNELS,
+    rate=RATE,
+    input=True,
+    input_device_index=DEVICE_INDEX,
+    frames_per_buffer=CHUNK
+)
+
+# 5. Set up the Matplotlib plot structure
 fig, ax = plt.subplots(figsize=(8, 4))
-x = np.arange(0, 2 * CHUNK, 2)  # X-axis points for 1024 samples
+x = np.arange(0, CHUNK)
 line, = ax.plot(x, np.zeros(CHUNK), '-', lw=2, color='teal')
 
-# Graph limits (16-bit audio ranges from -32768 to 32767)
+# Graph aesthetics (16-bit audio limits clipping ranges)
 ax.set_ylim(-15000, 15000)  
 ax.set_xlim(0, CHUNK)
-ax.set_title("Live Monitor Microphone Waveform")
+ax.set_title("Live Audio Waveform Visualizer")
 ax.set_xlabel("Audio Samples")
 ax.set_ylabel("Amplitude")
 plt.grid(True)
 
-print("Displaying live graph. Close the graph window or press Ctrl+C to stop.")
+print("\nDisplaying live graph. Close the window or press Ctrl+C to stop.")
 
 try:
-    # Use plt.ion() for interactive real-time updating
+    # Activate interactive mode and render the initial window frame
     plt.ion()
     plt.show()
+    fig.canvas.draw()
+    
+    # Cache background details for fast blit refreshing
+    background = fig.canvas.copy_from_bbox(ax.bbox)
     
     while plt.fignum_exists(fig.number):
-        # Read raw data and convert to 16-bit integers
+        # Read raw stream data safely buffer handling overflows
         data = stream.read(CHUNK, exception_on_overflow=False)
         audio_data = np.frombuffer(data, dtype=np.int16)
         
-        # Update the graph line data
+        # If stereo hardware fallback, extract only the first channel
+        if CHANNELS > 1:
+            audio_data = audio_data[::CHANNELS]
+            
+        # Handle zero padding if data chunk sizes mismatch
+        if len(audio_data) < CHUNK:
+            audio_data = np.pad(audio_data, (0, CHUNK - len(audio_data)), 'constant')
+
+        # Fast UI Update (Blitting avoids re-drawing the whole window)
+        fig.canvas.restore_region(background)
         line.set_ydata(audio_data)
-        
-        # Redraw the plot canvas
-        fig.canvas.draw()
+        ax.draw_artist(line)
+        fig.canvas.blit(ax.bbox)
         fig.canvas.flush_events()
 
 except KeyboardInterrupt:
-    print("\nStopping graph...")
+    print("\nStopping graph execution...")
 
 finally:
-    # Clean up hardware resources safely
-    stream.stop_stream()
-    stream.close()
+    # 6. Secure resource release
+    try:
+        stream.stop_stream()
+        stream.close()
+    except Exception:
+        pass
     p.terminate()
     plt.close('all')
+    print("Audio resources released cleanly.")
