@@ -1,59 +1,62 @@
-import subprocess
+import pyaudio
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation
 
-# 1. Audio Configuration (Built-in ALSA)
-RATE = "44100"
-CHUNK_SIZE = 1024
-bytes_per_sample = 2  # 16-bit audio = 2 bytes
-read_size = CHUNK_SIZE * bytes_per_sample
+# Audio stream configuration
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
+CHUNK = 1024
+DEVICE_INDEX = 0  # CHANGE THIS to your monitor's index number
 
-# Start the audio stream process
-# Note: 'hw:1,0' targets Card 1. Change to 'hw:2,0' if your monitor is on card 2.
-cmd = ["arecord", "-D", "hw:1,0", "-r", RATE, "-f", "S16_LE", "-c", "1", "-t", "raw", "-q"]
-process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+p = pyaudio.PyAudio()
 
-# 2. Setup Matplotlib Plot
-fig, ax = plt.subplots()
-ax.set_title("Live Room Noise Volume")
-ax.set_ylabel("Volume Level")
-ax.set_xlabel("Time (Frames)")
-ax.set_ylim(0, 3000)  # Adjust max height based on your mic sensitivity
+# Open connection to the monitor's microphone
+stream = p.open(format=FORMAT,
+                channels=CHANNELS,
+                rate=RATE,
+                input=True,
+                input_device_index=DEVICE_INDEX,
+                frames_per_buffer=CHUNK)
 
-# Data tracking for a scrolling window of the last 100 updates
-max_data_points = 100
-volume_history = [0] * max_data_points
-line, = ax.plot(volume_history, color='blue', lw=2)
+# Setup the matplotlib live graph
+fig, ax = plt.subplots(figsize=(8, 4))
+x = np.arange(0, 2 * CHUNK, 2)  # X-axis points for 1024 samples
+line, = ax.plot(x, np.zeros(CHUNK), '-', lw=2, color='teal')
 
-# 3. Animation Update Function
-def update_graph(frame):
-    global volume_history
-    
-    # Read live data bytes straight from the audio stream
-    raw_data = process.stdout.read(read_size)
-    if not raw_data:
-        return line,
-        
-    # Convert bytes to numeric array and calculate volume
-    audio_data = np.frombuffer(raw_data, dtype=np.int16)
-    volume = np.sqrt(np.mean(audio_data**2))
-    
-    # Update history: drop oldest point, add newest volume point
-    volume_history.pop(0)
-    volume_history.append(volume)
-    
-    # Redraw the line data
-    line.set_ydata(volume_history)
-    return line,
+# Graph limits (16-bit audio ranges from -32768 to 32767)
+ax.set_ylim(-15000, 15000)  
+ax.set_xlim(0, CHUNK)
+ax.set_title("Live Monitor Microphone Waveform")
+ax.set_xlabel("Audio Samples")
+ax.set_ylabel("Amplitude")
+plt.grid(True)
 
-# 4. Run the Live Animation
-# interval=20 means the graph updates roughly every 20 milliseconds
-ani = animation.FuncAnimation(fig, update_graph, blit=True, interval=20, cache_frame_data=False)
+print("Displaying live graph. Close the graph window or press Ctrl+C to stop.")
 
 try:
+    # Use plt.ion() for interactive real-time updating
+    plt.ion()
     plt.show()
+    
+    while plt.fignum_exists(fig.number):
+        # Read raw data and convert to 16-bit integers
+        data = stream.read(CHUNK, exception_on_overflow=False)
+        audio_data = np.frombuffer(data, dtype=np.int16)
+        
+        # Update the graph line data
+        line.set_ydata(audio_data)
+        
+        # Redraw the plot canvas
+        fig.canvas.draw()
+        fig.canvas.flush_events()
+
 except KeyboardInterrupt:
-    print("\nClosing graph.")
+    print("\nStopping graph...")
+
 finally:
-    process.terminate()
+    # Clean up hardware resources safely
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+    plt.close('all')
