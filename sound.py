@@ -1,46 +1,25 @@
-import pyaudio
+import sounddevice as sd
 import numpy as np
 
 # Audio configuration
-CHUNK = 1024
-FORMAT = pyaudio.paInt16
-CHANNELS = 1
-RATE = 44100
-DEVICE_INDEX = 1   # Set this to your monitor's card number from arecord -l
+DURATION = 0.1  # Check the microphone every 0.1 seconds
+RATE = 44100    # Standard sampling rate
+NOISE_THRESHOLD = 0.05  # Sensitivity threshold (0.0 to 1.0)
 
-# Set your trigger threshold for live noise
-NOISE_THRESHOLD = 500.0  
-
-p = pyaudio.PyAudio()
-
-# Open stream to read live data from the microphone
-stream = p.open(format=FORMAT,
-                channels=CHANNELS,
-                rate=RATE,
-                input=True,
-                input_device_index=DEVICE_INDEX,
-                frames_per_buffer=CHUNK)
-
-print("Monitoring live room noise...")
+print("Monitoring live room noise using sounddevice...")
 
 try:
     while True:
-        # Read raw data directly from the microphone stream
-        data = stream.read(CHUNK, exception_on_overflow=False)
+        # Capture live audio snapshot directly into a numpy array
+        recording = sd.rec(int(DURATION * RATE), samplerate=RATE, channels=1, dtype='float32')
+        sd.wait()  # Wait until the 0.1-second snapshot finishes
         
-        # Convert live data to a math-friendly format
-        audio_data = np.frombuffer(data, dtype=np.int16)
+        # Calculate live noise volume level
+        volume = np.sqrt(np.mean(recording**2))
         
-        # Calculate current sound volume level
-        volume = np.sqrt(np.mean(audio_data**2))
-        
-        # Trigger an action based on live noise
+        # Trigger when live noise crosses the threshold
         if volume > NOISE_THRESHOLD:
-            print(f"Noise detected! Volume level: {volume:.2f}")
-            # You can add code here to trigger an LED or external action
+            print(f"Noise detected! Level: {volume:.4f}")
 
 except KeyboardInterrupt:
     print("\nMonitoring stopped.")
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
