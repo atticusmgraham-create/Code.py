@@ -1,25 +1,38 @@
-import sounddevice as sd
+import subprocess
 import numpy as np
 
-# Audio configuration
-DURATION = 0.1  # Check the microphone every 0.1 seconds
-RATE = 44100    # Standard sampling rate
-NOISE_THRESHOLD = 0.05  # Sensitivity threshold (0.0 to 1.0)
+# Audio settings
+RATE = "44100"
+CHUNK_SIZE = 1024
+THRESHOLD = 500.0  # Adjust based on room noise levels
 
-print("Monitoring live room noise using sounddevice...")
+# Launch the built-in system recorder silently and stream live data into Python
+# -D hw:1,0 targets Card 1, Device 0. Adjust if your monitor is on a different card.
+cmd = ["arecord", "-D", "hw:1,0", "-r", RATE, "-f", "S16_LE", "-c", "1", "-t", "raw", "-q"]
 
 try:
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    print("Monitoring live room noise using built-in ALSA...")
+    
+    bytes_per_sample = 2  # 16-bit audio = 2 bytes
+    read_size = CHUNK_SIZE * bytes_per_sample
+
     while True:
-        # Capture live audio snapshot directly into a numpy array
-        recording = sd.rec(int(DURATION * RATE), samplerate=RATE, channels=1, dtype='float32')
-        sd.wait()  # Wait until the 0.1-second snapshot finishes
+        # Pull live data directly out of the OS audio buffer
+        raw_data = process.stdout.read(read_size)
+        if not raw_data:
+            break
+            
+        # Convert raw system bytes directly to integers
+        audio_data = np.frombuffer(raw_data, dtype=np.int16)
         
-        # Calculate live noise volume level
-        volume = np.sqrt(np.mean(recording**2))
+        # Calculate real-time volume
+        volume = np.sqrt(np.mean(audio_data**2))
         
-        # Trigger when live noise crosses the threshold
-        if volume > NOISE_THRESHOLD:
-            print(f"Noise detected! Level: {volume:.4f}")
+        if volume > THRESHOLD:
+            print(f"Noise detected! Volume: {volume:.2f}")
 
 except KeyboardInterrupt:
     print("\nMonitoring stopped.")
+finally:
+    process.terminate()
