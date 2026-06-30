@@ -1,69 +1,81 @@
 import cv2
 import imutils
 import time
+import requests
+from datetime import datetime
 
-# Initialize the Logitech USB camera (0 is usually the default web cam)
+# --- CONFIGURATION ---
+# Paste your Discord Webhook URL below
+DISCORD_WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE"
+# Minimum seconds to wait between sending alerts (prevents spamming your Discord channel)
+ALERT_COOLDOWN_SECONDS = 10 
+# ---------------------
+
 camera = cv2.VideoCapture(0)
-time.sleep(2.0)  # Allow the camera sensor to warm up
+time.sleep(2.0)
 
 first_frame = None
+last_alert_time = 0
 
-print("[INFO] Motion detection started. Press 'q' to quit.")
+print("[INFO] Motion detection active. Sending alerts to Discord.")
 
 while True:
-    # Grab the current frame
     grabbed, frame = camera.read()
     if not grabbed:
         print("[ERROR] Camera feed lost.")
         break
 
-    # Resize frame, convert to grayscale, and blur it to smooth out noise
     frame = imutils.resize(frame, width=500)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray = cv2.GaussianBlur(gray, (21, 21), 0)
 
-    # Initialize the first frame as the baseline background reference
     if first_frame is None:
         first_frame = gray
         continue
 
-    # Compute absolute difference between current frame and reference frame
     frame_delta = cv2.absdiff(first_frame, gray)
     thresh = cv2.threshold(frame_delta, 25, 255, cv2.THRESH_BINARY)[1]
-
-    # Dilate the thresholded image to fill in holes/gaps
     thresh = cv2.dilate(thresh, None, iterations=2)
     
-    # Find contours (shapes) of the moving regions
     contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = imutils.grab_contours(contours)
 
     motion_detected = False
 
-    # Loop over the contours
     for contour in contours:
-        # Ignore contours that are too small to filter out background noise
         if cv2.contourArea(contour) < 500:
             continue
 
-        # Compute the bounding box for the contour and draw it on the frame
         (x, y, w, h) = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         motion_detected = True
 
-    # Print log to console if movement is found
-    if motion_detected:
-        print("[ALERT] Movement detected!")
+    # Trigger alert if motion is detected and cooldown has passed
+    current_time = time.time()
+    if motion_detected and (current_time - last_alert_time > ALERT_COOLDOWN_SECONDS):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"[ALERT] Motion detected at {timestamp}! Sending to Discord...")
+        
+        # Prepare the text payload for Discord
+        payload = {
+            "content": f"🚨 **Motion Detected!**\nTime: `{timestamp}`"
+        }
+        
+        try:
+            # Send post request to Discord
+            response = requests.post(DISCORD_WEBHOOK_URL, json=payload)
+            if response.status_code == 240 or response.status_code == 204:
+                last_alert_time = current_time
+            else:
+                print(f"[ERROR] Discord returned status code {response.status_code}")
+        except Exception as e:
+            print(f"[ERROR] Failed to send Discord alert: {e}")
 
-    # Show the live video streams
     cv2.imshow("Security Feed", frame)
-    cv2.imshow("Thresh (Movement Mask)", thresh)
 
-    # Clear the stream buffer and check if 'q' key is pressed to break loop
     key = cv2.waitKey(1) & 0xFF
     if key == ord("q"):
         break
 
-# Cleanup and close windows
 camera.release()
 cv2.destroyAllWindows()
