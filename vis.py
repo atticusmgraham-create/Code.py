@@ -1,36 +1,69 @@
 import cv2
+import imutils
+import time
 
-# Initialize the webcam (usually 0 if it's the only camera connected)
-cap = cv2.VideoCapture(0)
+# Initialize the Logitech USB camera (0 is usually the default web cam)
+camera = cv2.VideoCapture(0)
+time.sleep(2.0)  # Allow the camera sensor to warm up
 
-# Set resolution to 720p (1280x720)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+first_frame = None
 
-# Optional: Set the framerate to 30 FPS
-cap.set(cv2.CAP_PROP_FPS, 30)
-
-if not cap.isOpened():
-    print("Error: Could not open camera.")
-    exit()
-
-print("Press 'q' to quit the live feed window.")
+print("[INFO] Motion detection started. Press 'q' to quit.")
 
 while True:
-    # Capture frame-by-frame
-    ret, frame = cap.read()
-
-    if not ret:
-        print("Error: Failed to grab frame.")
+    # Grab the current frame
+    grabbed, frame = camera.read()
+    if not grabbed:
+        print("[ERROR] Camera feed lost.")
         break
 
-    # Display the resulting frame in a window
-    cv2.imshow('Logitech 720p Live Feed', frame)
+    # Resize frame, convert to grayscale, and blur it to smooth out noise
+    frame = imutils.resize(frame, width=500)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.GaussianBlur(gray, (21, 21), 0)
 
-    # Break the loop when 'q' is pressed on the keyboard
-    if cv2.waitKey(1) & 0xFF == ord('q'):
+    # Initialize the first frame as the baseline background reference
+    if first_frame is None:
+        first_frame = gray
+        continue
+
+    # Compute absolute difference between current frame and reference frame
+    frame_delta = cv2.absdiff(first_frame, gray)
+    thresh = cv2.threshold(frame_delta, 25, 255, cv2.THRESH_BINARY)[1]
+
+    # Dilate the thresholded image to fill in holes/gaps
+    thresh = cv2.dilate(thresh, None, iterations=2)
+    
+    # Find contours (shapes) of the moving regions
+    contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    contours = imutils.grab_contours(contours)
+
+    motion_detected = False
+
+    # Loop over the contours
+    for contour in contours:
+        # Ignore contours that are too small to filter out background noise
+        if cv2.contourArea(contour) < 500:
+            continue
+
+        # Compute the bounding box for the contour and draw it on the frame
+        (x, y, w, h) = cv2.boundingRect(contour)
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+        motion_detected = True
+
+    # Print log to console if movement is found
+    if motion_detected:
+        print("[ALERT] Movement detected!")
+
+    # Show the live video streams
+    cv2.imshow("Security Feed", frame)
+    cv2.imshow("Thresh (Movement Mask)", thresh)
+
+    # Clear the stream buffer and check if 'q' key is pressed to break loop
+    key = cv2.waitKey(1) & 0xFF
+    if key == ord("q"):
         break
 
-# When everything done, release the capture
-cap.release()
+# Cleanup and close windows
+camera.release()
 cv2.destroyAllWindows()
