@@ -7,7 +7,7 @@ import os
 
 # --- CONFIGURATION ---
 # Paste your Discord Webhook URL below
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1521602297946177718/OB5pywUYseAwi_GumDxk8LSWxjw_TIRPpb_aAqdP02EjxoQ3pMtSlFpeCiXoWwwwa41N"
+DISCORD_WEBHOOK_URL = ""
 # Minimum seconds to wait between sending Discord notifications
 NOTIFICATION_COOLDOWN = 10  
 # Temp file name to save the snapshot
