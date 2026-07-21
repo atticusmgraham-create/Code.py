@@ -12,7 +12,7 @@ from gpiozero import Buzzer
 # --- CONFIGURATION ---
 percent=0
 weight=0
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1528863227696517281/OCD5kvDP_zFupE94RMCeO-qBwjqVUcqDAFaEWbxqvenzRopDc_dG9p5sY-IXQwGQseyN"
+DISCORD_WEBHOOK_URL = ""
 MIC_DEVICE_ID = 1          # Set to your webcam mic ID (e.g. 1 or "hw:1,0")
 NOTIFICATION_COOLDOWN = 15  # Cooldown time in seconds between alerts
 RECORD_DURATION = 5        # Duration of the captured video/audio clip in seconds
