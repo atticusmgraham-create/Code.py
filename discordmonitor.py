@@ -10,7 +10,9 @@ import numpy as np
 from gpiozero import Buzzer
 
 # --- CONFIGURATION ---
-DISCORD_WEBHOOK_URL = ""
+percent=0
+weight=0
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1528863227696517281/OCD5kvDP_zFupE94RMCeO-qBwjqVUcqDAFaEWbxqvenzRopDc_dG9p5sY-IXQwGQseyN"
 MIC_DEVICE_ID = 1          # Set to your webcam mic ID (e.g. 1 or "hw:1,0")
 NOTIFICATION_COOLDOWN = 15  # Cooldown time in seconds between alerts
 RECORD_DURATION = 5        # Duration of the captured video/audio clip in seconds
@@ -44,6 +46,7 @@ last_notification_time = 0
 print("[INFO] Security Monitor active with Auto-Audio Capture. Press 'q' to quit.")
 
 while True:
+    huo=1
     grabbed, frame = camera.read()
     if not grabbed:
         print("[ERROR] Camera feed lost.")
@@ -51,7 +54,7 @@ while True:
 
     frame = imutils.resize(frame, width=500)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray = cv2.GaussianBlur(gray, (5, 5), 0)
+    gray = cv2.GaussianBlur(gray, (21, 21), 0)
     # Total pixels in a Logitech C270 frame (1280 x 720)
     
     if first_frame is None:
@@ -60,21 +63,30 @@ while True:
 
     frame_delta = cv2.absdiff(first_frame, gray)
     thresh = cv2.threshold(frame_delta, 15, 255, cv2.THRESH_BINARY)[1]
-    cpc=np.sum(thresh==255)
+
     thresh = cv2.dilate(thresh, None, iterations=2)
-    
+    cpc=cv2.countNonZero(thresh)
+    tp=thresh.size
+    if(((cpc/tp)*100)>0):    
+        
+        percent=round((cpc/tp)*100,3)
+        print(percent)
+        
+        
     contours = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = imutils.grab_contours(contours)
-
     motion_detected = False
-
+    if(percent<1 and percent>0.01):
+      motion_detected = True
+    
     for contour in contours:
         if cv2.contourArea(contour) < 500:
             continue
         (x, y, w, h) = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         motion_detected = True
-
+    if(percent>0.4):
+        motion_detected = False
     if motion_detected:
         print("[ALERT] Movement detected!")
         buzzer.on()
