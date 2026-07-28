@@ -1,47 +1,45 @@
-import discord
-from discord.ext import commands
+from fastapi import FastAPI, Request, HTTPException
+from discord_interactions import verify_key_cb
 
-# 1. CONFIGURE GATEWAY INTENTS
-# Message content intent must be enabled to read the text inside messages
-intents = discord.Intents.default()
-intents.message_content = True
-bot = commands.Bot(command_prefix="!", intents=intents)
+app = FastAPI()
 
-# 2. CONFIGURATION VARIABLES
-BOT_TOKEN = "YOUR_DISCORD_BOT_TOKEN"
-FEEDBACK_CHANNEL_ID = 123456789012345678  # Replace with your actual Channel ID
+# Get this string from the "General Information" tab of the Discord Developer Portal
+DISCORD_PUBLIC_KEY = "YOUR_BOT_PUBLIC_KEY_HERE"
 
-@bot.event
-async def on_ready():
-    print(f"Bot logged in as: {bot.user}")
-    print("Now listening for server feedback on your Raspberry Pi...")
+@app.post("/webhook")
+async def discord_webhook(request: Request):
+    # 1. Verify that the request actually came from Discord security systems
+    signature = request.headers.get("X-Signature-Ed25519")
+    timestamp = request.headers.get("X-Signature-Timestamp")
+    body = await request.body()
+    
+    if not signature or not timestamp or not verify_key_cb(body, signature, timestamp, DISCORD_PUBLIC_KEY):
+        raise HTTPException(status_code=401, detail="Invalid request signature")
 
-@bot.event
-async def on_message(message):
-    # Ignore messages sent by bots to prevent feedback loops
-    if message.author.bot:
-        return
-
-    # Check if the message was sent inside your designated feedback channel
-    if message.channel.id == FEEDBACK_CHANNEL_ID:
+    # 2. Parse the feedback data
+    data = await request.json()
+    
+    # Handle Discord's initial system handshake (Type 1 is a PING)
+    if data.get("type") == 1:
+        return {"type": 1}
         
-        # Capture the feedback text and user metadata
-        user_name = message.author.name
-        feedback_content = message.content
-        timestamp = message.created_at.strftime("%Y-%m-%d %H:%M:%S")
+    # Handle Form/Modal submissions (Type 5)
+    if data.get("type") == 5:
+        # Extract the text the user typed into the form
+        components = data["data"]["components"]
+        user_feedback = components[0]["components"][0]["value"]
+        user_name = data["member"]["user"]["username"]
         
-        # Print directly to your Thonny IDE console window
-        print(f"\n📥 [NEW FEEDBACK] {timestamp}")
-        print(f"From: {user_name}")
-        print(f"Message: {feedback_content}")
-        print("-" * 40)
+        # PROCESS YOUR FEEDBACK HERE (e.g., save to database, print log)
+        print(f"Feedback from {user_name}: {user_feedback}")
         
-        # Optional: Append the feedback to a local text file on your Pi
-        with open("server_feedback.txt", "a", encoding="utf-8") as file:
-            file.write(f"[{timestamp}] {user_name}: {feedback_content}\n")
+        # Tell the user Discord successfully recorded their entry
+        return {
+            "type": 4, # Response type to show a message
+            "data": {
+                "flags": 64, # Ephemeral flag (only the user who clicked can see this message)
+                "content": "Thank you! Your feedback has been submitted successfully."
+            }
+        }
 
-    # Keep command processing active for other bot tasks
-    await bot.process_commands(message)
-
-# 3. RUN THE BOT
-bot.run(BOT_TOKEN)
+    return {"status": "unhandled interaction type"}
